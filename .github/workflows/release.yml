@@ -146,7 +146,7 @@ jobs:
           changelog-file: release-notes.md
           dependencies: |
             placeholderapi(optional)
-            vault(optional)
+            vaultunlocked(optional)
 
       # ──────────────────────────────────────────────────────────────────────
       #  8. DISCORD NOTIFICATION
