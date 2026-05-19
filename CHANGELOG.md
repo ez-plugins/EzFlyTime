@@ -5,27 +5,86 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-## [3.0.0]
+## [2.0.0] — 2026-05-19
+
+This release is a major overhaul of EzFlyTime.  Nearly every system has been
+rewritten or significantly extended.  **Existing `config.yml` and message files
+will need to be updated** — delete them and let the plugin regenerate defaults,
+then re-apply your customisations.
 
 ### Added
 
-- Timed flight system with live boss bar countdown.
-- Physical voucher items with PDC-backed unique identity and duplicate detection.
-- Voucher shop GUI with Vault economy integration (`/flyvoucher buy`, `/flyvoucher gui`).
-- Configurable particle trails during flight with per-player selection GUI and shop.
-- Auto-flight reward system: flat, permission-based, and mcMMO skill-level tiers.
-- Fuel display mode — show remaining flight as a percentage.
-- YAML and MySQL storage backends.
-- PlaceholderAPI expansion with time, seconds, minutes, and fuel placeholders.
-- Multilingual messages: English, Dutch, Spanish, French, Russian, Turkish, Chinese.
-- `/fly` toggle command with bypass permission support.
-- `/flytime give|set|remove|top` admin commands.
-- `/ezflytime reload|maxsingle` administration commands.
-- Per-session flight cap (`max-single-flight-seconds`) with per-player bypass.
-- Flight preservation across death and respawn (`preserve-on-death`).
-- Creative and Spectator mode bypass options.
-- SpigotMC update checker with configurable join notifications.
-- bStats metrics integration.
-- GitHub Pages documentation at <https://ez-plugins.github.io/EzFlyTime/>.
-- GitHub Actions release workflow (GitHub Releases + Modrinth).
-- GitHub Actions documentation workflow (Jekyll + Just The Docs).
+- **Timed flight system** — players now have a flight-time balance instead of
+  unlimited flight.  The remaining time counts down live and is shown in a
+  boss bar above the screen.
+- **Physical flight vouchers** — voucher items are backed by Persistent Data
+  Container (PDC) metadata and carry a unique identifier, making each item
+  traceable and preventing duplication exploits.
+- **In-game voucher shop GUI** — players open the shop with `/flytime` and
+  purchase vouchers directly using Vault economy currency.  The GUI is fully
+  configurable in `voucher-gui.yml` (title, slots, items, sounds, prices).
+- **Configurable commands on voucher buy / use** — add `on-buy-commands` and
+  `on-use-commands` to any voucher in `config.yml` to run console or player
+  commands automatically.  Supports placeholders: `{player}`, `{voucher}`,
+  `{voucher_name}`, `{duration_seconds}`, `{amount}`.
+- **Particle trail shop** — players can unlock and equip particle effects
+  during flight.  The shop and selection GUI are configured in
+  `particle-shop-gui.yml` and `particles.yml`.
+- **Auto-flight reward system** — grant flight time automatically on a timer.
+  Rewards can be flat, permission-based (rank groups), or tied to mcMMO skill
+  level thresholds.
+- **Fuel display mode** — optionally show remaining flight as a percentage
+  fuel bar instead of a time value (`display.flytime-mode: fuel`).
+- **MySQL storage backend** — store flight-time data in a MySQL database for
+  multi-server / BungeeCord setups alongside the default YAML backend.
+- **PlaceholderAPI expansion** — use `%ezflytime_time%`, `%ezflytime_seconds%`,
+  `%ezflytime_minutes%`, and `%ezflytime_fuel%` in any PlaceholderAPI-compatible
+  plugin.
+- **Multilingual messages** — built-in translations for English, Dutch, Spanish,
+  French, Russian, Turkish, Chinese, and German.  Set `language:` in
+  `config.yml` to switch instantly.
+- **Tab-complete permission gating** — `/flyvoucher` tab completions now respect
+  permissions: `give` is only suggested to players with `ezflytime.give`, and
+  `buy` only to players with `ezflytime.buy`.
+- **`/flytime top`** leaderboard command (permission `ezflytime.top`,
+  default: true).
+- **Per-session flight cap** — limit how long a single uninterrupted flight
+  session can last (`max-single-flight-seconds`).  A per-player bypass
+  permission is available.
+- **Flight preservation across death** — optionally keep or clear a player's
+  remaining flight time when they die (`preserve-on-death`).
+- **Creative / Spectator bypass** — players in Creative or Spectator mode can
+  be configured to fly freely without consuming time.
+- **SpigotMC update checker** — notifies online operators/admins when a new
+  version is available.  Configurable and can be disabled entirely.
+- **bStats metrics** — anonymous usage statistics to help guide future
+  development (opt-out supported via bStats global config).
+- **GitHub Pages documentation** at <https://ez-plugins.github.io/EzFlyTime/>.
+
+### Changed
+
+- `/flytime` with no arguments now opens the voucher shop GUI for all players
+  who have the `ezflytime.buy` permission (default: true).  Previously only
+  server operators saw the shop; regular players received only a "remaining
+  time" message.
+- `ezflytime.buy` is now declared in `plugin.yml` with `default: true`, making
+  the shop accessible to all players out of the box.  Restrict it via your
+  permission manager if needed.
+- `/fly` and `/flytime` no longer operate independently of each other — both
+  draw from and update the same flight-time balance.
+- Admin time-management commands (`give`, `set`, `remove`) no longer send a
+  duplicate notification to the target player.  The command handler sends one
+  message; `FlyTimeManager` is told `notify=false`.
+
+### Fixed
+
+- Players without `ezflytime.buy` could never open the voucher shop GUI because
+  the permission was used in code but not registered in `plugin.yml`, causing
+  it to silently default to OP-only.
+- Tab-complete for `/flyvoucher` suggested `give` and `buy` to every sender
+  regardless of what they were actually allowed to do.
+- Right-clicking a voucher during the 1-second anti-spam cooldown did not
+  cancel the event, allowing the click to propagate to the server.
+- Granting, setting, or removing flight time via admin commands sent two
+  notifications to the target player (one from the command, one from
+  `FlyTimeManager`).
