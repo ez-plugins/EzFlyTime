@@ -187,10 +187,14 @@ public class FlyVoucherCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-            if (args.length == 1) {
+        if (args.length == 1) {
             List<String> sub = new ArrayList<>();
-            sub.add("give");
-            sub.add("buy");
+            if (sender.hasPermission("ezflytime.give")) {
+                sub.add("give");
+            }
+            if (sender.hasPermission("ezflytime.buy")) {
+                sub.add("buy");
+            }
             com.ezflytime.config.ConfigManager cm = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
             if (cm != null && cm.isVoucherShopEnabled()) {
                 sub.add("gui");
@@ -198,25 +202,24 @@ public class FlyVoucherCommand implements CommandExecutor, TabCompleter {
             return sub.stream().filter(s -> s.startsWith(args[0].toLowerCase())).collect(Collectors.toList());
         }
         if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("give")) {
+            if (args[0].equalsIgnoreCase("give") && sender.hasPermission("ezflytime.give")) {
                 return OnlinePlayers.getOnlinePlayers().stream()
                         .map(Player::getName)
                         .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
                         .collect(Collectors.toList());
-            } else if (args[0].equalsIgnoreCase("buy")) {
+            } else if (args[0].equalsIgnoreCase("buy") && sender.hasPermission("ezflytime.buy")) {
                 return plugin.getServiceRegistry().getVoucherManager().getVoucherIds().stream()
                         .filter(id -> id.toLowerCase().startsWith(args[1].toLowerCase()))
                         .collect(Collectors.toList());
             }
         }
         if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("give")) {
+            if (args[0].equalsIgnoreCase("give") && sender.hasPermission("ezflytime.give")) {
                 return plugin.getServiceRegistry().getVoucherManager().getVoucherIds().stream()
                         .filter(id -> id.toLowerCase().startsWith(args[2].toLowerCase()))
                         .collect(Collectors.toList());
             }
-            // Optionally, suggest amounts for buy
-            if (args[0].equalsIgnoreCase("buy")) {
+            if (args[0].equalsIgnoreCase("buy") && sender.hasPermission("ezflytime.buy")) {
                 List<String> suggestions = new ArrayList<>();
                 suggestions.add("1");
                 suggestions.add("2");
