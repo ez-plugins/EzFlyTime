@@ -64,19 +64,16 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
         }
 
         if (isFlyTimeCommand || (args.length > 0 && args[0].equalsIgnoreCase("time"))) {
-            // If no arguments provided for /flytime, open the voucher GUI when available
+            // If no arguments provided for /flytime, open the voucher GUI when available.
+            // Permission enforcement (ezflytime.buy) is handled inside VoucherGUI.openGUI().
             if (isFlyTimeCommand && args.length == 0) {
-                if (sender instanceof Player && player.hasPermission("ezflytime.buy")) {
-                    ConfigManager cmGui = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
-                    if (cmGui != null && cmGui.isVoucherShopEnabled() && plugin.getServiceRegistry().getVoucherGUI() != null) {
-                        try {
-                            plugin.getServiceRegistry().getVoucherGUI().openGUI(player);
-                            return true;
-                        } catch (Exception ignored) {
-                            // If GUI fails, fall back to showing remaining time
-                        }
-                    } else {
-                        player.sendMessage(plugin.getMessage("messages.shop-disabled"));
+                ConfigManager cmGui = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
+                if (cmGui != null && cmGui.isVoucherShopEnabled() && plugin.getServiceRegistry().getVoucherGUI() != null) {
+                    try {
+                        plugin.getServiceRegistry().getVoucherGUI().openGUI(player);
+                        return true;
+                    } catch (Exception ignored) {
+                        // If GUI fails, fall back to showing remaining time
                     }
                 }
             }

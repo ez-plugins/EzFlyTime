@@ -27,6 +27,12 @@ commands:
     description: "Open particle selection or shop (subcommands: shop, select, toggle-autoequip)"
     usage: /<command> [shop|select|toggle-autoequip]
 permissions:
+  ezflytime.buy:
+    description: Allows purchasing fly time from the voucher shop GUI
+    default: true
+  ezflytime.buy.bypass:
+    description: Allows bypassing the purchase confirmation threshold
+    default: false
   ezflytime.give:
     description: Allows giving fly vouchers
     default: op
