@@ -4,8 +4,6 @@ parent: Integrations
 nav_order: 2
 ---
 
-# PlaceholderAPI
-
 ## Overview
 
 When [PlaceholderAPI](https://modrinth.com/mod/placeholderapi) is installed,

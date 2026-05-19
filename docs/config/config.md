@@ -4,8 +4,6 @@ parent: Configuration
 nav_order: 1
 ---
 
-# config.yml
-
 Core plugin settings. Located at `plugins/EzFlyTime/config.yml`.
 
 ---

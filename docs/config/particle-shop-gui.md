@@ -4,8 +4,6 @@ parent: Configuration
 nav_order: 3
 ---
 
-# particle-shop-gui.yml
-
 Controls the layout of the particle shop inventory GUI. Located at
 `plugins/EzFlyTime/particle-shop-gui.yml`.
 

@@ -3,8 +3,6 @@ title: Commands
 nav_order: 3
 ---
 
-# Commands
-
 ## Player commands
 
 ### `/fly`
@@ -56,7 +54,7 @@ Manage player flight time.
 
 ### `/flyvoucher give`
 
-```
+```text
 /flyvoucher give <player> <voucherId> [amount]
 ```
 
@@ -79,7 +77,7 @@ Plugin administration.
 
 ## Quick admin cheatsheet
 
-```
+```text
 /flytime give Steve 10m        — give Steve 10 minutes
 /flytime set Steve 1h          — set Steve's time to 1 hour
 /flytime remove Steve 5m       — remove 5 minutes from Steve

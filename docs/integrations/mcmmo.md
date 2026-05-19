@@ -4,8 +4,6 @@ parent: Integrations
 nav_order: 3
 ---
 
-# mcMMO
-
 ## Overview
 
 When [mcMMO](https://modrinth.com/plugin/mcmmo) is installed, EzFlyTime can grant

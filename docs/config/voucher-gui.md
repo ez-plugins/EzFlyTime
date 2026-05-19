@@ -4,8 +4,6 @@ parent: Configuration
 nav_order: 4
 ---
 
-# voucher-gui.yml
-
 Controls the layout and appearance of the voucher shop GUI. Located at
 `plugins/EzFlyTime/voucher-gui.yml`.
 

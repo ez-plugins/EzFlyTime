@@ -4,8 +4,6 @@ nav_order: 8
 has_children: true
 ---
 
-# Configuration
-
 EzFlyTime splits its configuration across focused files for maintainability.
 All files are generated with defaults on first server start and live under
 `plugins/EzFlyTime/`.

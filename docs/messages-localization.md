@@ -3,8 +3,6 @@ title: Messages & Localization
 nav_order: 5
 ---
 
-# Messages & Localization
-
 ## Bundled languages
 
 EzFlyTime ships with these message files out of the box:

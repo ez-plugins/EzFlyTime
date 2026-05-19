@@ -3,8 +3,6 @@ title: Getting Started
 nav_order: 2
 ---
 
-# Getting Started
-
 ## What EzFlyTime does
 
 EzFlyTime adds timed, voucher-powered flight to your server. Players do not get

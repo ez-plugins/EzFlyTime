@@ -4,8 +4,6 @@ parent: Integrations
 nav_order: 1
 ---
 
-# Vault / Economy
-
 ## Overview
 
 EzFlyTime uses [Vault](https://www.spigotmc.org/resources/vault.34315/) as an

@@ -4,8 +4,6 @@ layout: home
 nav_order: 1
 ---
 
-# EzFlyTime
-
 EzFlyTime is a production-ready temporary flight plugin for Minecraft servers running
 Bukkit, Spigot, or Paper. It gives players limited, timed flight powered by
 vouchers, periodic rewards, and economy integration — with a polished boss bar,

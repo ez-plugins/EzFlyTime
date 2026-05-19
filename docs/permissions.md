@@ -3,8 +3,6 @@ title: Permissions
 nav_order: 4
 ---
 
-# Permissions
-
 ## Declared permissions
 
 | Permission | Default | Description |

@@ -3,11 +3,9 @@ title: Development Guide
 nav_order: 7
 ---
 
-# Development Guide
-
 ## Repository layout
 
-```
+```text
 EzFlyTime/
 ├── src/main/java/com/ezflytime/   — plugin source
 │   ├── EzFlyTimePlugin.java       — plugin entry point

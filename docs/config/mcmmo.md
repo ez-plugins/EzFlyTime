@@ -4,8 +4,6 @@ parent: Configuration
 nav_order: 5
 ---
 
-# mcmmo.yml
-
 Controls how mcMMO skill levels map to auto-flight reward amounts. Located at
 `plugins/EzFlyTime/mcmmo.yml`.
 

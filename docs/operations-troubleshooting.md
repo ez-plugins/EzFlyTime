@@ -3,8 +3,6 @@ title: Operations & Troubleshooting
 nav_order: 6
 ---
 
-# Operations & Troubleshooting
-
 ## Common issues
 
 ### Players cannot fly after receiving a voucher
@@ -67,7 +65,7 @@ debug: true
 
 ## Reloading configuration
 
-```
+```text
 /ezflytime reload
 ```
 

@@ -4,8 +4,6 @@ parent: Configuration
 nav_order: 2
 ---
 
-# particles.yml
-
 Defines particle trail effects shown during flight. Located at
 `plugins/EzFlyTime/particles.yml`.
 
