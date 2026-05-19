@@ -1,0 +1,174 @@
+# EzFlyTime Configuration File
+# This file contains all the settings for the EzFlyTime plugin.
+# EzFlyTime allows players to have limited flight time on your Minecraft server.
+# Server owners can customize various aspects of flight mechanics, storage, rewards, and more.
+#
+# IMPORTANT: After making changes, restart your server or use /reload to apply them.
+# Some changes may require a full server restart for proper effect.
+#
+# For more help, visit the plugin's resource page or join the support Discord.
+
+# Language Settings
+# Determines the language used for plugin messages.
+# Supported values: en (English), nl (Dutch), es (Spanish)
+# To add support for a new language, create a messages_<code>.yml file in the resources folder.
+language: en
+
+# Debug Mode
+# Enables detailed logging in the console for troubleshooting issues.
+# Set to true only when debugging problems, as it can spam the console.
+# Default: false
+debug: false
+
+# Update Checker
+# Automatically checks for plugin updates from SpigotMC.
+# - enabled: Whether to check for updates
+# - resource-id: The Spigot resource ID (do not change unless instructed)
+# - notify-on-join: Notify ops/admins when they join if an update is available
+updates:
+  enabled: true
+  resource-id: 129745
+  notify-on-join: true
+
+# Display Settings
+# Controls how flight time is shown to players.
+# flytime-mode: 'time' shows remaining time, 'fuel' shows a fuel-like bar
+display:
+  flytime-mode: time # Options: time, fuel
+
+# Storage Configuration
+# Where player flight data is stored.
+# - type: 'yaml' (simple file storage) or 'mysql' (database storage)
+#   Use yaml for small servers, mysql for larger servers or cross-server setups.
+# - mysql: Database connection details (only used if type is mysql)
+#   - host: Database server address
+#   - port: Database port (default 3306)
+#   - database: Database name
+#   - username/password: Database credentials
+#   - use-ssl: Whether to use SSL for connection
+#   - table-prefix: Prefix for database tables to avoid conflicts
+storage:
+  type: yaml # yaml or mysql
+  mysql:
+    host: localhost
+    port: 3306
+    database: ezflytime
+    username: root
+    password: password
+    use-ssl: false
+    table-prefix: ezflytime_
+
+# Auto-Save Settings
+# How often the plugin saves flight data to prevent data loss.
+# - interval-seconds: Time between saves in seconds (300 = 5 minutes)
+#   Set to 0 to disable (not recommended, may cause data loss on crashes)
+auto-save:
+  interval-seconds: 300
+
+# Auto-Flight Rewards
+# Automatically grants flight time to players based on various criteria.
+# - enabled: Whether this feature is active
+# - interval-seconds: How often to check and reward players
+# - base-seconds: Base flight time granted to all players
+# - notify-players: Whether to notify players when they receive rewards
+# - ranks: Grant time based on permissions (example shows VIP group getting 60 seconds)
+# - permission-nodes: Custom permission nodes for different reward amounts
+# - mcmmo: Integration with mcMMO plugin for skill-based rewards
+#   - enabled: Whether mcMMO integration is active
+#   - skills: Define rewards for reaching skill level thresholds
+auto-flight-rewards:
+  enabled: false
+  interval-seconds: 600
+  base-seconds: 0
+  notify-players: true
+  ranks:
+    example:
+      permission: "group.vip"
+      seconds: 60
+  permission-nodes:
+    ezflytime.autoreward.minute: 60
+  mcmmo:
+    enabled: true
+    skills:
+      MINING:
+        thresholds:
+          100: 30  # 30 seconds for reaching mining level 100
+          500: 90  # 90 seconds for reaching mining level 500
+
+# Voucher Duplication Detection
+# Prevents players from duplicating vouchers using exploits.
+# Set to false only if you're experiencing false positives.
+detect-voucher-dupes: true
+
+# Flight Settings
+# Core flight mechanics configuration.
+# - activation-mode: How players activate flight
+#   - NORMAL: Standard flight activation
+#   - DOUBLE_JUMP_ELYTRA: Requires double-jump with elytra (more realistic)
+# - bypass-grants-unlimited: Whether the ezflytime.bypass permission gives unlimited flight
+#   If false, bypass permission only allows flight when time is available
+flight:
+  activation-mode: NORMAL # NORMAL or DOUBLE_JUMP_ELYTRA
+  bypass-grants-unlimited: true
+  # Treat players in CREATIVE as having unlimited flight by default. Set to false to disable.
+  allow-creative-bypass: true
+  # Treat players in SPECTATOR as having unlimited flight by default. Set to false to disable.
+  allow-spectator-bypass: true
+  # Maximum seconds allowed for a single continuous flight session.
+  # Set to 0 to disable per-session limits (default).
+  # Bypass with permission ezflytime.maxsingle.bypass or /ezflytime maxsingle.
+  max-single-flight-seconds: 0
+  # Preserve flight state across death/respawn. If true, players keep plugin-granted
+  # flight after they die and respawn (defaults to true).
+  preserve-on-death: true
+
+# Boss Bar Configuration
+# The boss bar shown to players during flight.
+# - enabled: Whether to show the boss bar
+# - title: Text shown on the boss bar (supports color codes and {time}, {speed} placeholders)
+# - color: Boss bar color (GREEN, BLUE, RED, etc.)
+# - style: Boss bar style (SOLID, SEGMENTED_6, SEGMENTED_10, etc.)
+bossbar:
+  enabled: true
+  title: '&aFlight time remaining: {time} | Speed: {speed} b/s'
+  color: GREEN
+  style: SOLID
+  # Optional speed counter shown in the boss bar
+  # Enable to show current horizontal speed (blocks per second) in the title.
+  # Use {speed} placeholder in `speed-format` or include {speed} in the `title`.
+  speed-counter:
+    enabled: false
+    # Example: '&bSpeed: {speed} b/s' or just '{speed} b/s'
+    speed-format: '&bSpeed: {speed} b/s'
+
+# Voucher Configuration
+# Defines flight time vouchers that players can purchase or receive.
+# Each voucher has:
+# - material: Minecraft item to represent the voucher
+# - name: Display name (supports color codes)
+# - lore: Description lines (supports color codes)
+# - duration-seconds: Flight time granted when redeemed
+# - price: Cost in Vault economy currency (0 to disable purchasing)
+#
+# You can add more vouchers by copying the structure below.
+# Players can redeem vouchers with /flytime voucher <name>
+# Voucher shop settings
+# - enabled: Whether the in-game voucher shop GUI is available
+voucher-shop:
+  enabled: true
+
+vouchers:
+  basic:
+    material: PAPER
+    name: '&aBasic Fly Voucher'
+    lore:
+      - '&7Redeem for 5 minutes of flight.'
+    duration-seconds: 300
+    price: 1000
+  premium:
+    material: FEATHER
+    name: '&bPremium Fly Voucher'
+    lore:
+      - '&7Redeem for 15 minutes of flight.'
+    duration-seconds: 900
+    price: 2500

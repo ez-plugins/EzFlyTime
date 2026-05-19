@@ -1,0 +1,140 @@
+# ===========================================
+# EzFlyTime Voucher GUI Configuration
+# ===========================================
+# Configure the professional voucher buying GUI
+# ===========================================
+
+# GUI SETTINGS
+gui:
+  # GUI Title (supports color codes)
+  title: "&6&lFlight Shop &7- &eBuy Vouchers"
+
+  # GUI Size (must be multiple of 9: 9, 18, 27, 36, 45, 54)
+  size: 27
+
+  # Background item (shown in empty slots)
+  background:
+    material: "GRAY_STAINED_GLASS_PANE"
+    name: "&7"
+    lore: []
+
+  # Close button
+  close-button:
+    slot: 26
+    material: "BARRIER"
+    name: "&cClose Shop"
+    lore:
+      - "&7Click to close the voucher shop"
+
+  # Info button
+  info-button:
+    slot: 18
+    material: "BOOK"
+    name: "&eFlight Information"
+    lore:
+      - "&7Welcome to the Flight Shop!"
+      - "&7Purchase vouchers to gain flight time"
+      - "&7"
+      - "&eHow to use:"
+      - "&7• Click on any voucher to buy it"
+      - "&7• Hold shift while clicking to buy 5x"
+      - "&7• Check your balance before buying"
+
+# VOUCHER DISPLAY SETTINGS
+vouchers:
+  # Basic voucher display
+  basic:
+    slot: 10
+    material: "PAPER"
+    custom-model-data: 0  # Set to -1 to disable, or a number for custom model
+    name: "&aBasic Flight Voucher"
+    lore:
+      - "&7Gives you &e5 minutes &7of flight time"
+      - "&7"
+      - "&6Price: &e{price} {currency}"
+      - "&7"
+      - "&eClick to purchase!"
+      - "&7Hold shift for 5x purchase"
+    glow: false  # Whether the item should have enchantment glow
+
+  # Premium voucher display
+  premium:
+    slot: 12
+    material: "FEATHER"
+    custom-model-data: 0
+    name: "&bPremium Flight Voucher"
+    lore:
+      - "&7Gives you &e15 minutes &7of flight time"
+      - "&7"
+      - "&6Price: &e{price} {currency}"
+      - "&7"
+      - "&eClick to purchase!"
+      - "&7Hold shift for 5x purchase"
+    glow: true  # Premium vouchers glow
+
+# PURCHASE SETTINGS
+purchase:
+  # Default purchase amount when clicking normally
+  default-amount: 1
+
+  # Purchase amount when shift-clicking
+  shift-amount: 5
+
+  # Maximum purchase amount per transaction
+  max-amount: 64
+
+  # Whether to confirm expensive purchases
+  confirm-expensive: true
+
+  # Minimum price to require confirmation (in currency units)
+  confirm-threshold: 1000
+
+# SOUND EFFECTS
+sounds:
+  # Sound when opening GUI
+  open:
+    sound: "ui.toast.in"
+    volume: 1.0
+    pitch: 1.0
+
+  # Sound when successfully purchasing
+  purchase-success:
+    sound: "entity.experience_orb.pickup"
+    volume: 1.0
+    pitch: 1.0
+
+  # Sound when purchase fails (insufficient funds)
+  purchase-fail:
+    sound: "entity.villager.no"
+    volume: 1.0
+    pitch: 1.0
+
+  # Sound when closing GUI
+  close:
+    sound: "ui.toast.out"
+    volume: 1.0
+    pitch: 1.0
+
+# PERMISSIONS
+permissions:
+  # Permission required to open the voucher GUI
+  open: "ezflytime.buy"
+
+  # Permission to bypass purchase confirmations
+  bypass-confirm: "ezflytime.buy.bypass"
+
+# ECONOMY SETTINGS
+economy:
+  # Currency display name (singular)
+  currency-singular: "coin"
+
+  # Currency display name (plural)
+  currency-plural: "coins"
+
+  # Whether to show currency symbol
+  show-currency-symbol: false
+
+  # Currency symbol (if enabled)
+  currency-symbol: "$"
+  # Whether to show compact formatted prices (e.g. 1k, 2.5m) in the GUI
+  show-formatted-price: true

@@ -1,0 +1,16 @@
+enabled: true
+permission-bypass: ezflytime.autoreward.mcmmo.bypass
+global-multiplier: 1.0
+messages:
+  disabled-warning: "mcMMO integration is disabled."
+skills:
+  EXCAVATION:
+    multiplier: 1.0
+    thresholds:
+      100: 30
+      500: 90
+  FISHING:
+    multiplier: 1.0
+    thresholds:
+      100: 10
+      500: 60

@@ -1,0 +1,287 @@
+# Minimal particle configuration for straight-down clouds + speed effects
+# - Clouds spawn directly beneath player feet in a straight line (no spread)
+# - Small extra effect triggers when moving > 10 blocks/sec
+# - Sonic boom triggers when moving > 20 blocks/sec
+
+enabled: true
+
+particles:
+  # Clouds falling directly from player feet
+  primary:
+    enabled: true
+    type: CLOUD
+    count: 2
+    speed: 0.0
+    # Spawn directly under player feet
+    offset:
+      x: 0.0
+      y: -1.0
+      z: 0.0
+    # No random spread; particles align vertically
+    directional: false
+    spread: 0.0
+    size: 1.0
+    rainbow: false
+    speed-responsive: false
+    trail:
+      enabled: false
+
+  # Small extra effect when moving faster than 10 blocks/sec
+  extra:
+    enabled: true
+    type: FIREWORKS_SPARK
+    count: 4
+    speed: 0.08
+    offset:
+      x: 0.0
+      y: -0.5
+      z: 0.0
+    directional: false
+    spread: 0.0
+    size: 0.6
+    rainbow: false
+    speed-responsive: false
+    # Activate only when player speed exceeds 10 blocks per second
+    # (plugin expects blocks/sec or blocks/tick depending on code; using 10 here)
+    min-speed: 10.0
+
+  # Sonic boom for very high speeds (>20 b/s)
+  sonic-boom:
+    enabled: true
+    type: EXPLOSION_LARGE
+    count: 1
+    speed: 0.0
+    offset:
+      x: 0.0
+      y: 0.0
+      z: -2.0
+    directional: false
+    spread: 0.0
+    size: 1.0
+    rainbow: false
+    speed-responsive: false
+    min-speed: 20.0
+
+  # Shop-available particle entries (minimal shop metadata)
+  basic:
+    enabled: true
+    type: CLOUD
+    count: 2
+    speed: 0.0
+    offset:
+      x: 0.0
+      y: -1.0
+      z: 0.0
+    directional: false
+    spread: 0.0
+    size: 1.0
+    rainbow: false
+    speed-responsive: false
+    shop:
+      price: 100
+      material: FEATHER
+      name: "Basic Flight"
+
+  vip:
+    enabled: true
+    type: CRIT_MAGIC
+    count: 4
+    speed: 0.08
+    offset:
+      x: 0.0
+      y: -0.5
+      z: 0.0
+    directional: false
+    spread: 0.0
+    size: 1.0
+    rainbow: true
+    speed-responsive: true
+    shop:
+      price: 1000
+      material: NETHER_STAR
+      name: "VIP Flight"
+
+  sparkle:
+    enabled: true
+    type: END_ROD
+    count: 4
+    speed: 0.06
+    offset:
+      x: 0.0
+      y: -0.5
+      z: 0.0
+    directional: false
+    spread: 0.0
+    size: 0.6
+    rainbow: false
+    shop:
+      price: 250
+      material: END_ROD
+      name: "Sparkle"
+
+# Optional particle definitions used by the shop GUI and unlocking system.
+# These definitions map the logical particle IDs (used in particle-shop-gui.yml)
+# to additional metadata like price and permission. This keeps the visual
+# effects configuration separate from shop metadata while keeping IDs in sync.
+particle-definitions:
+  basic:
+    display-name: "Basic Flight"
+    material: FEATHER
+    price: 100
+    permission: "ezflytime.particles.basic"
+    enabled: true
+
+  vip:
+    display-name: "VIP Flight"
+    material: NETHER_STAR
+    price: 1000
+    permission: "ezflytime.particles.vip"
+    enabled: true
+
+  sparkle:
+    display-name: "Sparkle"
+    material: END_ROD
+    price: 250
+    permission: "ezflytime.particles.sparkle"
+    enabled: true
+
+advanced:
+  # Keep global spread at 0 to avoid any unintended scatter
+  spread: 0.0
+  # Make global min-speed permissive; per-effect min-speed controls speed triggers
+  min-speed: 0.0
+  performance:
+    max-particles-per-tick: 40
+    tick-interval: 1
+
+permissions:
+  required-permission: ""
+
+# ------------------------------------------------------------------
+# REFERENCE: Full commented configuration (examples & notes)
+# Copy lines into the active sections above to enable settings.
+# ------------------------------------------------------------------
+# GENERAL
+# enabled: true
+#   Master switch to enable/disable all particle effects.
+#
+# PER-EFFECT OPTIONS (example)
+# particles:
+#   <effect-name>:
+#     enabled: true                # true/false
+#     type: CLOUD                  # Particle type (FLAME, CLOUD, EXPLOSION_LARGE, etc.)
+#     count: 4                     # Particles spawned per tick
+#     speed: 0.0                   # Particle speed (visual motion)
+#     offset:
+#       x: 0.0
+#       y: -1.0
+#       z: 0.0                    # Position offset relative to player
+#     color:
+#       red: 255
+#       green: 255
+#       blue: 255                # RGB only used for REDSTONE-like particles
+#     size: 1.0                   # Size multiplier (where supported)
+#     rainbow: false              # Enable rainbow color-cycling for this effect
+#     directional: false          # If true, spawn relative to movement direction
+#     spread: 0.0                 # Per-effect random spread radius (overrides global)
+#     speed-responsive: false     # If true, plugin may scale count based on player speed
+#     min-speed: 0.0              # Minimum player speed required to trigger (blocks/sec)
+#     require-sprinting: false    # Require the player to be sprinting for this effect
+#     sprint-type: CRIT_MAGIC     # Optional alternative particle type while sprinting
+#     trail:
+#       enabled: false
+#       length: 10               # Number of points in persistent trail
+#       fade: true               # Older trail points fade out
+#
+# ADVANCED (global)
+# advanced:
+#   only-when-moving: false        # Only show particles while player is moving
+#   min-speed: 0.05               # Global threshold to spawn any particles
+#   spawn-distance: 0.0           # Distance from player where particles spawn
+#   spread: 0.7                   # Global random spread radius for particles
+#   lifetime-multiplier: 1.0      # Lifetime multiplier (if supported)
+#
+# RAINBOW GLOBAL SETTINGS
+# advanced:
+#   rainbow:
+#     enabled: true
+#     speed: 2.0                   # Color-cycling speed
+#     saturation: 1.0
+#     brightness: 1.0
+#
+# PERFORMANCE
+# advanced:
+#   performance:
+#     max-particles-per-tick: 50   # Max number of particles spawned per player per tick
+#     tick-interval: 1             # 1 = every tick, 2 = every other tick, etc.
+#
+# ENVIRONMENT
+# advanced:
+#   environment:
+#     water-effect: true
+#     lava-effect: true
+#     high-altitude-effect: true
+#
+# PERMISSIONS
+# permissions:
+#   required-permission: ""        # Basic permission required to see particles
+#   bypass-limits: "ezflytime.particles.bypass"  # Ignore performance caps
+#   rainbow: "ezflytime.particles.rainbow"
+#   speed-boost: "ezflytime.particles.speedboost"
+#   sonic-boom: "ezflytime.particles.sonicboom"
+#   magic-aura: "ezflytime.particles.magicaura"
+#
+# SOUND (optional)
+# sound:
+#   enabled: true
+#   volume: 0.7
+#   pitch-variation: 0.2
+#   cooldown: 40
+#   effects:
+#     takeoff:
+#       enabled: true
+#       sound: "entity.player.levelup"
+#       volume: 0.8
+#       pitch: 1.5
+#     speed-boost:
+#       enabled: true
+#       sound: "entity.arrow.shoot"
+#       volume: 0.6
+#       pitch: 1.2
+#     landing:
+#       enabled: true
+#       sound: "block.note_block.bell"
+#       volume: 0.5
+#       pitch: 0.8
+#     environment:
+#       enabled: true
+#       water: "entity.player.splash"
+#       lava: "entity.generic.burn"
+#       volume: 0.4
+#       pitch: 1.0
+#
+# PRESETS (examples)
+# presets:
+#   subtle:                             # Minimal visual footprint
+#     primary:
+#       enabled: true
+#       type: CLOUD
+#       count: 1
+#       speed: 0.0
+#   epic:                               # Maximal visual impact
+#     primary:
+#       enabled: true
+#       type: CRIT_MAGIC
+#       count: 8
+#       speed: 0.1
+#
+# TROUBLESHOOTING & TIPS
+# - If particles appear scattered, check both the per-effect `spread`
+#   and global `advanced.spread` values; per-effect overrides global.
+# - If speed-based effects (min-speed, sonic-boom) don't trigger, verify
+#   whether the plugin expects blocks/tick or blocks/second. Try dividing
+#   your thresholds by 20 if nothing triggers.
+# - To completely disable an effect, set `enabled: false` under that effect.
+# - After editing config files in `plugins/EzFlyTime/`, run `/flytime reload`
+#   or restart the server to apply changes.
+# ------------------------------------------------------------------

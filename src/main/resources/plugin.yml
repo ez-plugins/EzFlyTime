@@ -1,0 +1,68 @@
+name: EzFlyTime
+version: ${project.version}
+main: com.ezflytime.EzFlyTimePlugin
+author: Shadow48402
+softdepend:
+  - PlaceholderAPI
+  - mcMMO
+  - Vault
+  - EzEconomy
+commands:
+  flyvoucher:
+    description: Give configurable fly vouchers to players
+    usage: /<command> give <player> <voucherId> [amount]
+  fly:
+    description: Toggle flight or show remaining fly time
+    usage: /<command> [time]
+    permission: ezflytime.fly
+  flytime:
+    description: Show remaining fly time, manage player flight time, or view top players
+    usage: /<command> [reload|give <player> <time>|set <player> <time>|remove <player> <time>|top]
+    permission: ezflytime.flytime
+  ezflytime:
+    description: EzFlyTime plugin administration commands
+    usage: /<command> reload|maxsingle <player> [on|off|toggle]
+    permission: ezflytime.admin
+  flyparticles:
+    description: "Open particle selection or shop (subcommands: shop, select, toggle-autoequip)"
+    usage: /<command> [shop|select|toggle-autoequip]
+permissions:
+  ezflytime.give:
+    description: Allows giving fly vouchers
+    default: op
+  ezflytime.bypass:
+    description: Allows a player to keep flight after voucher time expires
+    default: false
+  ezflytime.bypass.creative:
+    description: Allows unlimited flight while in Creative mode when configured
+    default: false
+  ezflytime.bypass.spectator:
+    description: Allows unlimited flight while in Spectator mode when configured
+    default: false
+  ezflytime.fly:
+    description: Allows toggling flight
+    default: true
+  ezflytime.flytime:
+    description: Allows viewing remaining fly time
+    default: true
+  ezflytime.reload:
+    description: Allows reloading EzFlyTime configuration
+    default: op
+  ezflytime.admin:
+    description: Allows access to EzFlyTime administration commands
+    default: op
+  ezflytime.maxsingle.manage:
+    description: Allows managing the max single-flight bypass command
+    default: op
+  ezflytime.maxsingle.bypass:
+    description: Allows bypassing the max single-flight session limit
+    default: false
+  ezflytime.notify:
+    description: Receives voucher duplicate alerts
+    default: op
+  ezflytime.update:
+    description: Receives update notifications for EzFlyTime
+    default: op
+  ezflytime.top:
+    description: Allows viewing the top fly time leaderboard
+    default: true
