@@ -165,6 +165,14 @@ vouchers:
       - '&7Redeem for 5 minutes of flight.'
     duration-seconds: 300
     price: 1000
+    # Commands run when a player buys this voucher from the shop GUI.
+    # Prefix with "console:" (or no prefix) to run as the console,
+    # or "player:" to run as the buying player.
+    # Placeholders: {player}, {voucher}, {voucher_name}, {duration_seconds}, {amount}
+    on-buy-commands: []
+    # Commands run when a player right-clicks and redeems this voucher item.
+    # Same format as on-buy-commands. {amount} is always 1 here.
+    on-use-commands: []
   premium:
     material: FEATHER
     name: '&bPremium Fly Voucher'
@@ -172,3 +180,5 @@ vouchers:
       - '&7Redeem for 15 minutes of flight.'
     duration-seconds: 900
     price: 2500
+    on-buy-commands: []
+    on-use-commands: []

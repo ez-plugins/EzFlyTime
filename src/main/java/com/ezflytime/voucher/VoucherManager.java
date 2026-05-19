@@ -20,6 +20,7 @@ import com.ezflytime.util.OnlinePlayers;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -97,7 +98,9 @@ public class VoucherManager implements Listener {
                     try { price = voucherSection.getDouble("price"); } catch (Exception ignored) { price = -1; }
                 }
             }
-            FlyVoucher voucher = new FlyVoucher(plugin, id, material, name, lore, duration, price);
+            List<String> onBuyCommands = voucherSection.getStringList("on-buy-commands");
+            List<String> onUseCommands = voucherSection.getStringList("on-use-commands");
+            FlyVoucher voucher = new FlyVoucher(plugin, id, material, name, lore, duration, price, onBuyCommands, onUseCommands);
             vouchers.put(id.toLowerCase(), voucher);
         }
     }
@@ -184,6 +187,32 @@ public class VoucherManager implements Listener {
                 .replace("{voucher}", voucher.getDisplayName())
                 .replace("{minutes}", String.valueOf(voucher.getDurationSeconds() / 60))
                 .replace("{seconds}", String.valueOf(voucher.getDurationSeconds())));
+        executeVoucherCommands(player, voucher.getOnUseCommands(), voucher, 1);
+    }
+
+    private void executeVoucherCommands(Player player, List<String> commands, FlyVoucher voucher, int amount) {
+        if (commands == null || commands.isEmpty()) return;
+        org.bukkit.command.CommandSender console = plugin.getServer().getConsoleSender();
+        for (String raw : commands) {
+            String cmd = applyVoucherPlaceholders(raw, player, voucher, amount);
+            String lower = cmd.toLowerCase(java.util.Locale.ROOT);
+            if (lower.startsWith("player:")) {
+                plugin.getServer().dispatchCommand(player, cmd.substring(7).trim());
+            } else if (lower.startsWith("console:")) {
+                plugin.getServer().dispatchCommand(console, cmd.substring(8).trim());
+            } else {
+                plugin.getServer().dispatchCommand(console, cmd);
+            }
+        }
+    }
+
+    private String applyVoucherPlaceholders(String cmd, Player player, FlyVoucher voucher, int amount) {
+        return cmd
+                .replace("{player}", player.getName())
+                .replace("{voucher}", voucher.getId())
+                .replace("{voucher_name}", org.bukkit.ChatColor.stripColor(voucher.getDisplayName()))
+                .replace("{duration_seconds}", String.valueOf(voucher.getDurationSeconds()))
+                .replace("{amount}", String.valueOf(amount));
     }
 
     private void consumeItem(Player player, Hand hand) {
