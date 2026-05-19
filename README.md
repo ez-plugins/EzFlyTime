@@ -35,6 +35,7 @@ Documentation at a glance:
 - Fuel display mode - show remaining time as a percentage instead of a countdown.
 - YAML or MySQL storage.
 - PlaceholderAPI placeholders for scoreboards, chat formats, and GUIs.
+- Optional [TeamsAPI](https://modrinth.com/plugin/teams-api) integration: `/f fly` team subcommand and claimed-chunks flight restriction.
 - Multilingual messages: English, Dutch, Spanish, French, Russian, Turkish, Chinese.
 
 ## Compatibility
@@ -49,6 +50,7 @@ Documentation at a glance:
 - [EzEconomy](https://modrinth.com/plugin/ezeconomy) - lightweight economy plugin tested with EzFlyTime
 - [PlaceholderAPI](https://modrinth.com/mod/placeholderapi) - fly-time placeholders
 - [mcMMO](https://modrinth.com/plugin/mcmmo) - skill-level auto-reward tiers
+- [TeamsAPI](https://modrinth.com/plugin/teams-api) - `/f fly` team subcommand and claimed-chunks flight restriction
 
 EzFlyTime runs safely even when optional integrations are missing.
 
@@ -94,6 +96,7 @@ EzFlyTime runs safely even when optional integrations are missing.
 | `ezflytime.give` | `op` | Give vouchers with `/flyvoucher give` |
 | `ezflytime.reload` | `op` | Reload configuration |
 | `ezflytime.admin` | `op` | All `/ezflytime` admin commands |
+| `ezflytime.teams.fly.bypass` | `false` | Exempt from TeamsAPI claimed-chunks restriction |
 
 ## Configuration Files
 

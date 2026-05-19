@@ -54,6 +54,7 @@ particle trails, and a configurable GUI shop.
 | [PlaceholderAPI](integrations/placeholderapi) | Expose fly time in chat, scoreboards, GUIs |
 | [mcMMO](integrations/mcmmo) | Skill-based auto-flight reward tiers |
 | [EzEconomy](integrations/vault-economy#ezeconomy) | Lightweight economy tested with EzFlyTime |
+| [TeamsAPI](integrations/teams-api) | Team command subcommand and claimed-chunks restriction |
 
 ## For Developers
 

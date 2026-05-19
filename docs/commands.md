@@ -36,7 +36,21 @@ Voucher-related commands.
 
 ---
 
-## Admin commands
+## Team integration commands
+
+### `/f fly` (TeamsAPI)
+
+When [TeamsAPI](https://modrinth.com/plugin/teams-api) is installed, EzFlyTime
+registers a `fly` subcommand inside the team plugin's command tree.
+
+```text
+/f fly
+```
+
+Behaves identically to `/fly`: toggles EzFlyTime flight on or off and draws from
+the player's fly-time balance. Requires the `ezflytime.fly` permission (default: true).
+
+See the [TeamsAPI integration page](integrations/teams-api) for full details.
 
 ### `/flytime <subcommand>`
 

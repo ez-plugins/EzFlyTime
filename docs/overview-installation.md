@@ -31,6 +31,7 @@ Optional soft dependencies (EzFlyTime runs safely without any of these):
 - [EzEconomy](https://modrinth.com/plugin/ezeconomy) - lightweight economy plugin tested with EzFlyTime
 - [PlaceholderAPI](https://modrinth.com/mod/placeholderapi) - exposes fly-time placeholders
 - [mcMMO](https://modrinth.com/plugin/mcmmo) - unlocks skill-level auto-reward tiers
+- [TeamsAPI](https://modrinth.com/plugin/teams-api) - team command subcommand and claimed-chunks flight restriction
 
 ---
 
