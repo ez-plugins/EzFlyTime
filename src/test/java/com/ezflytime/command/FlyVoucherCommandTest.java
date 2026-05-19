@@ -8,6 +8,10 @@ import org.bukkit.entity.Player;
 import org.junit.jupiter.api.Test;
 import org.mockito.Answers;
 
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class FlyVoucherCommandTest extends CommandTestBase {
@@ -137,5 +141,86 @@ class FlyVoucherCommandTest extends CommandTestBase {
             .replace("{price}", com.ezflytime.util.MoneyFormatter.format(2.5))
             .replace("{currency}", "dollars");
         verify(player).sendMessage(expectedSuccess);
+    }
+
+    // --- tab-complete permission gating ---
+
+    @Test
+    void tabCompleteArg1_buyOnlyPermission_showsBuyNotGive() {
+        CommandSender sender = mock(CommandSender.class);
+        when(sender.hasPermission("ezflytime.buy")).thenReturn(true);
+        when(sender.hasPermission("ezflytime.give")).thenReturn(false);
+        when(serviceRegistry.getConfigManager().isVoucherShopEnabled()).thenReturn(false);
+
+        Command command = mock(Command.class);
+        FlyVoucherCommand subject = new FlyVoucherCommand(plugin);
+
+        List<String> result = subject.onTabComplete(sender, command, "flyvoucher", new String[]{""});
+
+        assertTrue(result.contains("buy"), "expected 'buy' in completions");
+        assertFalse(result.contains("give"), "expected 'give' not in completions");
+    }
+
+    @Test
+    void tabCompleteArg1_giveOnlyPermission_showsGiveNotBuy() {
+        CommandSender sender = mock(CommandSender.class);
+        when(sender.hasPermission("ezflytime.buy")).thenReturn(false);
+        when(sender.hasPermission("ezflytime.give")).thenReturn(true);
+        when(serviceRegistry.getConfigManager().isVoucherShopEnabled()).thenReturn(false);
+
+        Command command = mock(Command.class);
+        FlyVoucherCommand subject = new FlyVoucherCommand(plugin);
+
+        List<String> result = subject.onTabComplete(sender, command, "flyvoucher", new String[]{""});
+
+        assertTrue(result.contains("give"), "expected 'give' in completions");
+        assertFalse(result.contains("buy"), "expected 'buy' not in completions");
+    }
+
+    @Test
+    void tabCompleteArg1_noPermission_returnsEmpty() {
+        CommandSender sender = mock(CommandSender.class);
+        when(sender.hasPermission("ezflytime.buy")).thenReturn(false);
+        when(sender.hasPermission("ezflytime.give")).thenReturn(false);
+        when(serviceRegistry.getConfigManager().isVoucherShopEnabled()).thenReturn(false);
+
+        Command command = mock(Command.class);
+        FlyVoucherCommand subject = new FlyVoucherCommand(plugin);
+
+        List<String> result = subject.onTabComplete(sender, command, "flyvoucher", new String[]{""});
+
+        assertTrue(result.isEmpty(), "expected empty completions");
+    }
+
+    @Test
+    void tabCompleteArg2_buyPermission_showsVoucherIds() {
+        CommandSender sender = mock(CommandSender.class);
+        when(sender.hasPermission("ezflytime.buy")).thenReturn(true);
+        when(sender.hasPermission("ezflytime.give")).thenReturn(false);
+
+        VoucherManager vm = mock(VoucherManager.class);
+        when(serviceRegistry.getVoucherManager()).thenReturn(vm);
+        when(vm.getVoucherIds()).thenReturn(Set.of("basic", "premium"));
+
+        Command command = mock(Command.class);
+        FlyVoucherCommand subject = new FlyVoucherCommand(plugin);
+
+        List<String> result = subject.onTabComplete(sender, command, "flyvoucher", new String[]{"buy", ""});
+
+        assertTrue(result.containsAll(List.of("basic", "premium")) && result.size() == 2, "expected voucher IDs in completions");
+    }
+
+    @Test
+    void tabCompleteArg2_noBuyPermission_returnsEmptyForBuySubcommand() {
+        CommandSender sender = mock(CommandSender.class);
+        when(sender.hasPermission("ezflytime.buy")).thenReturn(false);
+        when(sender.hasPermission("ezflytime.give")).thenReturn(false);
+
+        Command command = mock(Command.class);
+        FlyVoucherCommand subject = new FlyVoucherCommand(plugin);
+
+        List<String> result = subject.onTabComplete(sender, command, "flyvoucher", new String[]{"buy", ""});
+
+        assertTrue(result.isEmpty(), "expected empty completions");
     }
 }
