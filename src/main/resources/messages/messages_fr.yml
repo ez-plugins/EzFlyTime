@@ -63,6 +63,9 @@ messages:
     help-reload: '&e/ezflytime reload &7- Reload all configuration files'
     help-maxsingle: '&e/ezflytime maxsingle <player> [on|off|toggle] &7- Bypass max single flight time'
     help-help: '&e/ezflytime help &7- Show this help message'
+    teams-no-fly-unclaimed: '&cVous pouvez seulement voler dans le territoire revendique de votre equipe.'
+    teams-fly-zone-left: '&cVol desactive - vous avez quitte le territoire de votre equipe.'
+    teams-not-in-team: '&cVous devez faire partie d''une equipe pour voler ici.'
 
     particle-not-for-sale: 'Cette particule n\'est pas à vendre.'
     particle-unlocked: '{particle} débloqué.'

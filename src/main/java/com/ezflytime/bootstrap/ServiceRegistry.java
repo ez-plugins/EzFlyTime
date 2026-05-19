@@ -32,6 +32,7 @@ public class ServiceRegistry {
     private com.ezflytime.config.ConfigManager configManager;
     private net.milkbowl.vault.economy.Economy economy;
     private final Set<UUID> maxSingleBypassPlayers = new HashSet<>();
+    private com.ezflytime.teams.TeamsIntegration teamsIntegration;
 
     public FlyTimeStorage getFlyTimeStorage() {
         return flyTimeStorage;
@@ -174,5 +175,13 @@ public class ServiceRegistry {
 
     public Set<UUID> getMaxSingleBypassPlayers() {
         return maxSingleBypassPlayers;
+    }
+
+    public com.ezflytime.teams.TeamsIntegration getTeamsIntegration() {
+        return teamsIntegration;
+    }
+
+    public void setTeamsIntegration(com.ezflytime.teams.TeamsIntegration teamsIntegration) {
+        this.teamsIntegration = teamsIntegration;
     }
 }

@@ -108,6 +108,10 @@ public class StartupBootstrap {
         placeholderIntegration.registerIfAvailable();
         registry.setPlaceholderIntegration(placeholderIntegration);
 
+        com.ezflytime.teams.TeamsIntegration teamsIntegration = new com.ezflytime.teams.TeamsIntegration(plugin);
+        teamsIntegration.registerIfAvailable();
+        registry.setTeamsIntegration(teamsIntegration);
+
         // Initialize bStats metrics via dedicated manager
         try {
             com.ezflytime.bootstrap.bstats.BStatsManager bStatsManager = new com.ezflytime.bootstrap.bstats.BStatsManager(plugin);
@@ -177,6 +181,9 @@ public class StartupBootstrap {
         }
         if (registry.getPlaceholderIntegration() != null) {
             registry.getPlaceholderIntegration().unregister();
+        }
+        if (registry.getTeamsIntegration() != null) {
+            registry.getTeamsIntegration().unregister();
         }
     }
 
