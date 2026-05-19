@@ -7,24 +7,24 @@ nav_order: 7
 
 ```text
 EzFlyTime/
-├── src/main/java/com/ezflytime/   — plugin source
-│   ├── EzFlyTimePlugin.java       — plugin entry point
-│   ├── bootstrap/                 — startup wiring (commands, services, storage)
-│   ├── command/                   — command handlers
-│   ├── config/                    — ConfigManager
-│   ├── flight/                    — FlyTimeManager, boss bar handler, auto-reward
-│   ├── gui/                       — inventory GUIs (voucher shop, particle shop)
-│   ├── mcmmo/                     — mcMMO integration config
-│   ├── particles/                 — particle config, manager, spawner, trails
-│   ├── placeholder/               — PlaceholderAPI expansion
-│   ├── storage/                   — storage abstractions (YAML + MySQL)
-│   ├── update/                    — update checker
-│   ├── util/                      — shared utilities
-│   └── voucher/                   — voucher model and redemption logic
-├── src/main/resources/            — default configs and plugin.yml
-├── src/test/                      — unit tests
-├── docs/                          — GitHub Pages documentation (you are here)
-└── pom.xml                        — build descriptor
+├── src/main/java/com/ezflytime/   - plugin source
+│   ├── EzFlyTimePlugin.java       - plugin entry point
+│   ├── bootstrap/                 - startup wiring (commands, services, storage)
+│   ├── command/                   - command handlers
+│   ├── config/                    - ConfigManager
+│   ├── flight/                    - FlyTimeManager, boss bar handler, auto-reward
+│   ├── gui/                       - inventory GUIs (voucher shop, particle shop)
+│   ├── mcmmo/                     - mcMMO integration config
+│   ├── particles/                 - particle config, manager, spawner, trails
+│   ├── placeholder/               - PlaceholderAPI expansion
+│   ├── storage/                   - storage abstractions (YAML + MySQL)
+│   ├── update/                    - update checker
+│   ├── util/                      - shared utilities
+│   └── voucher/                   - voucher model and redemption logic
+├── src/main/resources/            - default configs and plugin.yml
+├── src/test/                      - unit tests
+├── docs/                          - GitHub Pages documentation (you are here)
+└── pom.xml                        - build descriptor
 ```
 
 ## Build workflow
@@ -49,17 +49,17 @@ The shaded plugin jar is placed in `target/EzFlyTime-<version>.jar`.
 
 ## Suggested local verification flow
 
-1. `mvn -q -DskipTests compile` — fast compile check
-2. `mvn -q test` — run the test suite
+1. `mvn -q -DskipTests compile` - fast compile check
+2. `mvn -q test` - run the test suite
 3. Drop the jar into a local test server and verify your feature manually.
-4. Open a pull request — the CI workflow runs compile, test, and builds automatically.
+4. Open a pull request - the CI workflow runs compile, test, and builds automatically.
 
 ## Contributor conventions
 
 - Keep changes focused; one feature or fix per pull request.
 - Include unit tests for non-trivial logic changes when practical.
 - Document any config keys or message keys you add or change.
-- Run `mvn test` locally before pushing — the CI pipeline must pass before merge.
+- Run `mvn test` locally before pushing - the CI pipeline must pass before merge.
 
 ## Storage abstraction
 

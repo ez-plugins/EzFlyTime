@@ -19,9 +19,9 @@ background-item:
   display-name: " "
 ```
 
-- `title` — inventory title shown at the top of the GUI.
-- `rows` — number of rows (1–6, must accommodate all configured slots).
-- `background-item` — material used to fill empty slots.
+- `title` - inventory title shown at the top of the GUI.
+- `rows` - number of rows (1–6, must accommodate all configured slots).
+- `background-item` - material used to fill empty slots.
 
 ---
 
@@ -41,7 +41,7 @@ Each top-level key is the **slot number** (0–53 for a 6-row chest).
 
 | Key | Description |
 | :--- | :--- |
-| `id` | Particle ID — must match a key in `particles.yml`. |
+| `id` | Particle ID - must match a key in `particles.yml`. |
 | `material` | Icon item material. |
 | `display-name` | Text shown on the item. |
 | `price` | Economy cost to purchase. `0` makes the particle free. |

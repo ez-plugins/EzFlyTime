@@ -1,9 +1,9 @@
-# EzFlyTime — Timed Flight, Voucher Shop & Particles for Spigot/Paper
+# EzFlyTime - Timed Flight, Voucher Shop & Particles for Spigot/Paper
 
 EzFlyTime is a production-ready timed-flight plugin for Minecraft servers.
 Players earn or purchase vouchers to gain temporary flight. A live boss bar counts
 down remaining time, particle trails add visual flair, and a GUI shop lets players
-spend server currency — all configurable with YAML or MySQL storage.
+spend server currency - all configurable with YAML or MySQL storage.
 
 ![Voucher Shop GUI](https://i.ibb.co/MxWXXnDr/image.png)
 
@@ -14,8 +14,8 @@ spend server currency — all configurable with YAML or MySQL storage.
 - In-game GUI shop for buying vouchers with Vault economy integration
 - Configurable particle trails per player (with an unlockable shop)
 - Auto-flight rewards: flat, permission-based, or tied to mcMMO skill levels
-- Fuel display mode — show remaining time as a percentage instead of a countdown
-- YAML or MySQL storage — easy single-server setup or cross-server database
+- Fuel display mode - show remaining time as a percentage instead of a countdown
+- YAML or MySQL storage - easy single-server setup or cross-server database
 - PlaceholderAPI support for scoreboards, chat formats, and GUIs
 - Multilingual messages: English, Dutch, Spanish, French, Russian, Turkish, Chinese
 
@@ -38,21 +38,21 @@ spend server currency — all configurable with YAML or MySQL storage.
 
 **Player commands**
 
-- `/fly` — Toggle flight on/off.
-- `/flytime` — Show remaining fly time (or open the voucher GUI).
-- `/flyparticles` — Open the particle select/shop GUI or toggle auto-equip.
-- `/flyvoucher buy <voucherId> [amount]` — Purchase vouchers with server currency.
-- `/flyvoucher gui` — Open the voucher shop GUI.
+- `/fly` - Toggle flight on/off.
+- `/flytime` - Show remaining fly time (or open the voucher GUI).
+- `/flyparticles` - Open the particle select/shop GUI or toggle auto-equip.
+- `/flyvoucher buy <voucherId> [amount]` - Purchase vouchers with server currency.
+- `/flyvoucher gui` - Open the voucher shop GUI.
 
 **Admin commands**
 
-- `/flytime give <player> <time>` — Add flight time (e.g. `10m`, `1h`).
-- `/flytime set <player> <time>` — Set a player's flight time exactly.
-- `/flytime remove <player> <time>` — Remove flight time from a player.
-- `/flytime top` — Show the fly-time leaderboard.
-- `/flyvoucher give <player> <voucherId> [amount]` — Give vouchers to a player.
-- `/ezflytime reload` — Reload all configuration files.
-- `/ezflytime maxsingle <player> [on|off|toggle]` — Bypass the per-session cap for a player.
+- `/flytime give <player> <time>` - Add flight time (e.g. `10m`, `1h`).
+- `/flytime set <player> <time>` - Set a player's flight time exactly.
+- `/flytime remove <player> <time>` - Remove flight time from a player.
+- `/flytime top` - Show the fly-time leaderboard.
+- `/flyvoucher give <player> <voucherId> [amount]` - Give vouchers to a player.
+- `/ezflytime reload` - Reload all configuration files.
+- `/ezflytime maxsingle <player> [on|off|toggle]` - Bypass the per-session cap for a player.
 
 ---
 
@@ -117,10 +117,10 @@ display:
 
 ## Integrations
 
-- **Vault** — economy abstraction for voucher purchasing
-- **EzEconomy** — lightweight Vault-compatible economy: <https://modrinth.com/plugin/ezeconomy>
-- **PlaceholderAPI** — register fly-time placeholders for scoreboards and GUIs
-- **mcMMO** — grant flight time based on skill level thresholds
+- **Vault** / **[VaultUnlocked](https://modrinth.com/plugin/vaultunlocked)** - economy abstraction for voucher purchasing
+- **EzEconomy** - lightweight Vault-compatible economy: <https://modrinth.com/plugin/ezeconomy>
+- **PlaceholderAPI** - register fly-time placeholders for scoreboards and GUIs
+- **mcMMO** - grant flight time based on skill level thresholds
 
 ---
 

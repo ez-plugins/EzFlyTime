@@ -1,6 +1,6 @@
 # EzFlyTime
 
-Timed flight for Minecraft servers — voucher shop, boss bar, particles, and economy
+Timed flight for Minecraft servers - voucher shop, boss bar, particles, and economy
 integration for Bukkit, Spigot, and Paper.
 
 [![Modrinth](https://img.shields.io/modrinth/dt/ezflytime?label=Modrinth&logo=modrinth)](https://modrinth.com/plugin/ezflytime)
@@ -32,7 +32,7 @@ Documentation at a glance:
 - In-game GUI shop for buying vouchers with Vault economy integration.
 - Configurable particle trails per player (with an unlockable shop).
 - Auto-flight rewards: flat, permission-based, or tied to mcMMO skill levels.
-- Fuel display mode — show remaining time as a percentage instead of a countdown.
+- Fuel display mode - show remaining time as a percentage instead of a countdown.
 - YAML or MySQL storage.
 - PlaceholderAPI placeholders for scoreboards, chat formats, and GUIs.
 - Multilingual messages: English, Dutch, Spanish, French, Russian, Turkish, Chinese.
@@ -45,10 +45,10 @@ Documentation at a glance:
 
 ### Optional integrations
 
-- [Vault](https://www.spigotmc.org/resources/vault.34315/) — economy hooks for voucher purchasing
-- [EzEconomy](https://modrinth.com/plugin/ezeconomy) — lightweight economy plugin tested with EzFlyTime
-- [PlaceholderAPI](https://modrinth.com/mod/placeholderapi) — fly-time placeholders
-- [mcMMO](https://modrinth.com/plugin/mcmmo) — skill-level auto-reward tiers
+- [Vault](https://www.spigotmc.org/resources/vault.34315/) / [VaultUnlocked](https://modrinth.com/plugin/vaultunlocked) - economy hooks for voucher purchasing
+- [EzEconomy](https://modrinth.com/plugin/ezeconomy) - lightweight economy plugin tested with EzFlyTime
+- [PlaceholderAPI](https://modrinth.com/mod/placeholderapi) - fly-time placeholders
+- [mcMMO](https://modrinth.com/plugin/mcmmo) - skill-level auto-reward tiers
 
 EzFlyTime runs safely even when optional integrations are missing.
 
@@ -71,18 +71,18 @@ EzFlyTime runs safely even when optional integrations are missing.
 
 ### Player commands
 
-- `/fly` — Toggle flight.
-- `/flytime` — Show remaining fly time.
-- `/flyparticles` — Manage particle trails.
-- `/flyvoucher buy <id> [amount]` — Purchase a voucher with server currency.
+- `/fly` - Toggle flight.
+- `/flytime` - Show remaining fly time.
+- `/flyparticles` - Manage particle trails.
+- `/flyvoucher buy <id> [amount]` - Purchase a voucher with server currency.
 
 ### Admin commands
 
-- `/flytime give <player> <time>` — Add flight time (e.g. `10m`, `1h`).
-- `/flytime set <player> <time>` — Set flight time exactly.
-- `/flytime remove <player> <time>` — Remove flight time.
-- `/flyvoucher give <player> <id> [amount]` — Give vouchers to a player.
-- `/ezflytime reload` — Reload all configuration files.
+- `/flytime give <player> <time>` - Add flight time (e.g. `10m`, `1h`).
+- `/flytime set <player> <time>` - Set flight time exactly.
+- `/flytime remove <player> <time>` - Remove flight time.
+- `/flyvoucher give <player> <id> [amount]` - Give vouchers to a player.
+- `/ezflytime reload` - Reload all configuration files.
 
 ## Permissions
 

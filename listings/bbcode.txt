@@ -1,11 +1,11 @@
-[B]EzFlyTime — Timed Flight, Voucher Shop & Particles for Spigot/Paper[/B]
+[B]EzFlyTime - Timed Flight, Voucher Shop & Particles for Spigot/Paper[/B]
 
 [IMG]https://i.ibb.co/MxWXXnDr/image.png[/IMG]
 
 EzFlyTime is a production-ready timed-flight plugin for Minecraft servers.
 Players earn or purchase vouchers to gain temporary flight. A live boss bar counts
 down remaining time, particle trails add visual flair, and a GUI shop lets players
-spend server currency — all configurable with YAML or MySQL storage.
+spend server currency - all configurable with YAML or MySQL storage.
 
 [B]Key Features[/B]
 [LIST]
@@ -14,8 +14,8 @@ spend server currency — all configurable with YAML or MySQL storage.
 [*] In-game GUI shop for buying vouchers with Vault economy integration
 [*] Configurable particle trails per player (with an unlockable shop)
 [*] Auto-flight rewards: flat, permission-based, or tied to mcMMO skill levels
-[*] Fuel display mode — show remaining time as a percentage instead of a countdown
-[*] YAML or MySQL storage — easy single-server setup or cross-server database
+[*] Fuel display mode - show remaining time as a percentage instead of a countdown
+[*] YAML or MySQL storage - easy single-server setup or cross-server database
 [*] PlaceholderAPI support for scoreboards, chat formats, and GUIs
 [*] Multilingual messages: English, Dutch, Spanish, French, Russian, Turkish, Chinese
 [/LIST]
@@ -36,33 +36,33 @@ spend server currency — all configurable with YAML or MySQL storage.
 
 Player commands:
 [LIST]
-[*] [ICODE]/fly[/ICODE] — Toggle flight on/off.
-[*] [ICODE]/flytime[/ICODE] — Show remaining fly time (or open the voucher GUI).
-[*] [ICODE]/flyparticles[/ICODE] — Open particle select/shop GUI or toggle auto-equip.
-[*] [ICODE]/flyvoucher buy <voucherId> [amount][/ICODE] — Purchase vouchers with server currency.
-[*] [ICODE]/flyvoucher gui[/ICODE] — Open the voucher shop GUI.
+[*] [ICODE]/fly[/ICODE] - Toggle flight on/off.
+[*] [ICODE]/flytime[/ICODE] - Show remaining fly time (or open the voucher GUI).
+[*] [ICODE]/flyparticles[/ICODE] - Open particle select/shop GUI or toggle auto-equip.
+[*] [ICODE]/flyvoucher buy <voucherId> [amount][/ICODE] - Purchase vouchers with server currency.
+[*] [ICODE]/flyvoucher gui[/ICODE] - Open the voucher shop GUI.
 [/LIST]
 
 Admin commands:
 [LIST]
-[*] [ICODE]/flytime give <player> <time>[/ICODE] — Add flight time (e.g. [ICODE]10m[/ICODE], [ICODE]1h[/ICODE]).
-[*] [ICODE]/flytime set <player> <time>[/ICODE] — Set a player's flight time exactly.
-[*] [ICODE]/flytime remove <player> <time>[/ICODE] — Remove flight time from a player.
-[*] [ICODE]/flytime top[/ICODE] — Show the fly-time leaderboard.
-[*] [ICODE]/flyvoucher give <player> <voucherId> [amount][/ICODE] — Give vouchers to a player.
-[*] [ICODE]/ezflytime reload[/ICODE] — Reload all configuration files.
-[*] [ICODE]/ezflytime maxsingle <player> [on|off|toggle][/ICODE] — Bypass the per-session cap for a player.
+[*] [ICODE]/flytime give <player> <time>[/ICODE] - Add flight time (e.g. [ICODE]10m[/ICODE], [ICODE]1h[/ICODE]).
+[*] [ICODE]/flytime set <player> <time>[/ICODE] - Set a player's flight time exactly.
+[*] [ICODE]/flytime remove <player> <time>[/ICODE] - Remove flight time from a player.
+[*] [ICODE]/flytime top[/ICODE] - Show the fly-time leaderboard.
+[*] [ICODE]/flyvoucher give <player> <voucherId> [amount][/ICODE] - Give vouchers to a player.
+[*] [ICODE]/ezflytime reload[/ICODE] - Reload all configuration files.
+[*] [ICODE]/ezflytime maxsingle <player> [on|off|toggle][/ICODE] - Bypass the per-session cap for a player.
 [/LIST]
 
 [B]Permissions[/B]
 [LIST]
-[*] [ICODE]ezflytime.fly[/ICODE] — Toggle flight (default: true)
-[*] [ICODE]ezflytime.flytime[/ICODE] — View remaining time (default: true)
-[*] [ICODE]ezflytime.top[/ICODE] — View leaderboard (default: true)
-[*] [ICODE]ezflytime.bypass[/ICODE] — Keep flight when time runs out (default: false)
-[*] [ICODE]ezflytime.give[/ICODE] — Give vouchers to players (default: op)
-[*] [ICODE]ezflytime.reload[/ICODE] — Reload configuration (default: op)
-[*] [ICODE]ezflytime.admin[/ICODE] — Full admin access (default: op)
+[*] [ICODE]ezflytime.fly[/ICODE] - Toggle flight (default: true)
+[*] [ICODE]ezflytime.flytime[/ICODE] - View remaining time (default: true)
+[*] [ICODE]ezflytime.top[/ICODE] - View leaderboard (default: true)
+[*] [ICODE]ezflytime.bypass[/ICODE] - Keep flight when time runs out (default: false)
+[*] [ICODE]ezflytime.give[/ICODE] - Give vouchers to players (default: op)
+[*] [ICODE]ezflytime.reload[/ICODE] - Reload configuration (default: op)
+[*] [ICODE]ezflytime.admin[/ICODE] - Full admin access (default: op)
 [/LIST]
 
 [B]Configuration highlights[/B]
@@ -96,18 +96,18 @@ display:
 
 [B]PlaceholderAPI Placeholders[/B]
 [LIST]
-[*] [ICODE]%ezflytime_time_remaining%[/ICODE] — formatted remaining time (e.g. [ICODE]1h 2m 3s[/ICODE])
-[*] [ICODE]%ezflytime_seconds%[/ICODE] — raw remaining seconds
-[*] [ICODE]%ezflytime_minutes%[/ICODE] — whole minutes remaining
-[*] [ICODE]%ezflytime_fuel%[/ICODE] — remaining flight as a percentage (0–100)
+[*] [ICODE]%ezflytime_time_remaining%[/ICODE] - formatted remaining time (e.g. [ICODE]1h 2m 3s[/ICODE])
+[*] [ICODE]%ezflytime_seconds%[/ICODE] - raw remaining seconds
+[*] [ICODE]%ezflytime_minutes%[/ICODE] - whole minutes remaining
+[*] [ICODE]%ezflytime_fuel%[/ICODE] - remaining flight as a percentage (0–100)
 [/LIST]
 
 [B]Integrations[/B]
 [LIST]
-[*] [B]Vault[/B] — economy abstraction for voucher purchasing
-[*] [B]EzEconomy[/B] — lightweight Vault-compatible economy: [URL]https://modrinth.com/plugin/ezeconomy[/URL]
-[*] [B]PlaceholderAPI[/B] — register fly-time placeholders for scoreboards and GUIs
-[*] [B]mcMMO[/B] — grant flight time based on skill level thresholds
+[*] [B]Vault[/B] / [B]VaultUnlocked[/B] ([URL]https://modrinth.com/plugin/vaultunlocked[/URL]) - economy abstraction for voucher purchasing
+[*] [B]EzEconomy[/B] - lightweight Vault-compatible economy: [URL]https://modrinth.com/plugin/ezeconomy[/URL]
+[*] [B]PlaceholderAPI[/B] - register fly-time placeholders for scoreboards and GUIs
+[*] [B]mcMMO[/B] - grant flight time based on skill level thresholds
 [/LIST]
 
 [B]Language Support[/B]

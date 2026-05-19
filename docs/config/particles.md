@@ -73,9 +73,9 @@ particles:
       name: "VIP Flight"
 ```
 
-- `price` — cost in economy currency.
-- `material` — icon material in the shop GUI.
-- `name` — display name in the shop GUI.
+- `price` - cost in economy currency.
+- `material` - icon material in the shop GUI.
+- `name` - display name in the shop GUI.
 
 The corresponding slot in `particle-shop-gui.yml` must reference the same particle ID.
 
