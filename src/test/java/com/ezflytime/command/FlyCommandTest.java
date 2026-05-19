@@ -283,11 +283,11 @@ class FlyCommandTest extends CommandTestBase {
 
         // "60" with no unit: ≤ 60 threshold → treated as 60 minutes = 3 600 s
         subject.onCommand(sender, command, "flytime", new String[]{"give", "target", "60"});
-        verify(flyTimeManager).addTime(target, 3600);
+        verify(flyTimeManager).addTime(target, 3600, false);
 
         // "61" with no unit: > 60 threshold → treated as 61 seconds
         subject.onCommand(sender, command, "flytime", new String[]{"give", "target", "61"});
-        verify(flyTimeManager).addTime(target, 61);
+        verify(flyTimeManager).addTime(target, 61, false);
         // The two results are 3 600 s vs 61 s — a 58× difference for adjacent
         // inputs, which is likely unintentional.
     }
