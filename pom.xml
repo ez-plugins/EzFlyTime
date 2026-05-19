@@ -96,6 +96,7 @@
     </dependencies>
 
     <build>
+        <finalName>EzFlyTime-${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
