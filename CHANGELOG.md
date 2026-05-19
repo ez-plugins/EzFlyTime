@@ -5,16 +5,6 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### Fixed
-
-- Modrinth release workflow now lists `vaultunlocked` instead of `vault` as an optional
-  dependency; Vault has no Modrinth listing whereas
-  [VaultUnlocked](https://modrinth.com/plugin/vaultunlocked) is the actively maintained fork.
-- `plugin.yml` now includes both `Vault` and `VaultUnlocked` in `softdepend` so EzFlyTime
-  loads correctly regardless of which economy provider is installed.
-- `/flyvoucher` tab completions are now gated on sender permissions: `give` is only suggested
-  to players with `ezflytime.give` and `buy` only to players with `ezflytime.buy`.
-
 ## [2.0.0] - 2026-05-19
 
 This release is a major overhaul of EzFlyTime.  Nearly every system has been
@@ -88,6 +78,13 @@ then re-apply your customisations.
 
 ### Fixed
 
+- Modrinth release workflow now lists `vaultunlocked` instead of `vault` as an optional
+  dependency; Vault has no Modrinth listing whereas
+  [VaultUnlocked](https://modrinth.com/plugin/vaultunlocked) is the actively maintained fork.
+- `plugin.yml` now includes both `Vault` and `VaultUnlocked` in `softdepend` so EzFlyTime
+  loads correctly regardless of which economy provider is installed.
+- `/flyvoucher` tab completions are now gated on sender permissions: `give` is only suggested
+  to players with `ezflytime.give` and `buy` only to players with `ezflytime.buy`.
 - Players without `ezflytime.buy` could never open the voucher shop GUI because
   the permission was used in code but not registered in `plugin.yml`, causing
   it to silently default to OP-only.
