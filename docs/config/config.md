@@ -38,9 +38,9 @@ updates:
   notify-on-join: true
 ```
 
-- `enabled` — whether to check SpigotMC for updates at startup.
-- `notify-on-join` — notify players with `ezflytime.update` when they join and an update is available.
-- `resource-id` — do not change this value.
+- `enabled` - whether to check SpigotMC for updates at startup.
+- `notify-on-join` - notify players with `ezflytime.update` when they join and an update is available.
+- `resource-id` - do not change this value.
 
 ---
 
@@ -51,8 +51,8 @@ display:
   flytime-mode: time  # time | fuel
 ```
 
-- `time` (default) — shows remaining flight as a formatted duration (e.g. `1h 2m 3s`).
-- `fuel` — shows remaining flight as a percentage (e.g. `Flight fuel: 75%`).
+- `time` (default) - shows remaining flight as a formatted duration (e.g. `1h 2m 3s`).
+- `fuel` - shows remaining flight as a percentage (e.g. `Flight fuel: 75%`).
 
 This setting affects boss bars, messages, and PlaceholderAPI placeholders.
 
@@ -86,7 +86,7 @@ auto-save:
 ```
 
 How often data is flushed to disk (YAML) or the database. Set to `0` to disable
-(not recommended — data since the last save will be lost on a hard crash).
+(not recommended - data since the last save will be lost on a hard crash).
 
 ---
 
@@ -116,10 +116,10 @@ auto-flight-rewards:
 When enabled, EzFlyTime runs a periodic task that checks all online players and
 grants flight time based on their permissions and (optionally) mcMMO skill levels.
 
-- `base-seconds` — granted to every online player each cycle regardless of permissions.
-- `ranks` — named groups: if the player has `permission`, they receive `seconds`.
-- `permission-nodes` — map of permission → seconds; any player with the node receives that amount.
-- `mcmmo` — see [mcmmo.yml](mcmmo) for the dedicated configuration file; the section here is a
+- `base-seconds` - granted to every online player each cycle regardless of permissions.
+- `ranks` - named groups: if the player has `permission`, they receive `seconds`.
+- `permission-nodes` - map of permission → seconds; any player with the node receives that amount.
+- `mcmmo` - see [mcmmo.yml](mcmmo) for the dedicated configuration file; the section here is a
   legacy fallback when `mcmmo.yml` is absent.
 
 ---
@@ -150,7 +150,7 @@ flight:
 
 | Key | Description |
 | :--- | :--- |
-| `activation-mode` | `NORMAL` — standard Minecraft flight. `DOUBLE_JUMP_ELYTRA` — double-jump activates Elytra glide. |
+| `activation-mode` | `NORMAL` - standard Minecraft flight. `DOUBLE_JUMP_ELYTRA` - double-jump activates Elytra glide. |
 | `bypass-grants-unlimited` | When `true`, players with `ezflytime.bypass` fly indefinitely without consuming time. |
 | `allow-creative-bypass` | When `true`, Creative-mode players are treated as having unlimited flight. Requires `ezflytime.bypass.creative`. |
 | `allow-spectator-bypass` | When `true`, Spectator-mode players are treated as having unlimited flight. Requires `ezflytime.bypass.spectator`. |
@@ -206,7 +206,7 @@ vouchers:
     price: 2500
 ```
 
-- `voucher-shop.enabled` — controls whether the in-game GUI shop is accessible.
+- `voucher-shop.enabled` - controls whether the in-game GUI shop is accessible.
 - Each voucher key (e.g. `basic`) is its ID used in `/flyvoucher give` and `/flyvoucher buy`.
 - `price: 0` disables purchasing for that voucher (give-only).
 - Add more vouchers by copying the structure above.

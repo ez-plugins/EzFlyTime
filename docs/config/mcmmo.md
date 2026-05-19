@@ -22,9 +22,9 @@ permission-bypass: ezflytime.autoreward.mcmmo.bypass
 global-multiplier: 1.0
 ```
 
-- `enabled` — enable or disable mcMMO-based rewards entirely.
-- `permission-bypass` — players with this node are excluded from mcMMO reward calculations.
-- `global-multiplier` — multiply all mcMMO-derived reward values by this factor.
+- `enabled` - enable or disable mcMMO-based rewards entirely.
+- `permission-bypass` - players with this node are excluded from mcMMO reward calculations.
+- `global-multiplier` - multiply all mcMMO-derived reward values by this factor.
 
 ---
 
@@ -47,8 +47,8 @@ skills:
 Each key is an mcMMO skill name (uppercase). The `thresholds` map skill levels to
 seconds granted per auto-reward cycle.
 
-- `multiplier` — per-skill multiplier applied on top of `global-multiplier`.
-- `thresholds` — map of `<level>: <seconds>`. A player at or above a threshold level
+- `multiplier` - per-skill multiplier applied on top of `global-multiplier`.
+- `thresholds` - map of `<level>: <seconds>`. A player at or above a threshold level
   receives that many seconds. Multiple thresholds are cumulative: a player at level 500
   in the example above receives **both** the 100- and 500-level rewards.
 

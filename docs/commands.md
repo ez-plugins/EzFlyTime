@@ -23,16 +23,16 @@ Show remaining fly time.
 
 Manage in-flight particle trails.
 
-- `/flyparticles select` — Open the particle selection GUI.
-- `/flyparticles shop` — Open the particle shop to purchase new trail styles.
-- `/flyparticles toggle-autoequip` — Toggle whether newly purchased particles are automatically equipped.
+- `/flyparticles select` - Open the particle selection GUI.
+- `/flyparticles shop` - Open the particle shop to purchase new trail styles.
+- `/flyparticles toggle-autoequip` - Toggle whether newly purchased particles are automatically equipped.
 
 ### `/flyvoucher`
 
 Voucher-related commands.
 
-- `/flyvoucher buy <voucherId> [amount]` — Purchase a voucher using server currency.
-- `/flyvoucher gui` — Open the voucher shop GUI.
+- `/flyvoucher buy <voucherId> [amount]` - Purchase a voucher using server currency.
+- `/flyvoucher gui` - Open the voucher shop GUI.
 
 ---
 
@@ -78,11 +78,11 @@ Plugin administration.
 ## Quick admin cheatsheet
 
 ```text
-/flytime give Steve 10m        — give Steve 10 minutes
-/flytime set Steve 1h          — set Steve's time to 1 hour
-/flytime remove Steve 5m       — remove 5 minutes from Steve
-/flytime top                   — show leaderboard
-/ezflytime reload               — reload config
-/flyvoucher give Steve basic 3 — give Steve 3 basic vouchers
-/ezflytime maxsingle Steve on  — exempt Steve from per-session limit
+/flytime give Steve 10m        - give Steve 10 minutes
+/flytime set Steve 1h          - set Steve's time to 1 hour
+/flytime remove Steve 5m       - remove 5 minutes from Steve
+/flytime top                   - show leaderboard
+/ezflytime reload               - reload config
+/flyvoucher give Steve basic 3 - give Steve 3 basic vouchers
+/ezflytime maxsingle Steve on  - exempt Steve from per-session limit
 ```

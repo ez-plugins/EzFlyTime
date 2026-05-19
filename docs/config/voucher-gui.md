@@ -79,5 +79,5 @@ purchase:
   shift-amount: 5
 ```
 
-- `default-amount` — vouchers purchased per normal click.
-- `shift-amount` — vouchers purchased per shift-click.
+- `default-amount` - vouchers purchased per normal click.
+- `shift-amount` - vouchers purchased per shift-click.

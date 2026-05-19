@@ -6,22 +6,22 @@ nav_order: 1
 
 EzFlyTime is a production-ready temporary flight plugin for Minecraft servers running
 Bukkit, Spigot, or Paper. It gives players limited, timed flight powered by
-vouchers, periodic rewards, and economy integration — with a polished boss bar,
+vouchers, periodic rewards, and economy integration - with a polished boss bar,
 particle trails, and a configurable GUI shop.
 
 ---
 
 ## Highlights
 
-- **Timed flight** — players fly for a configured duration; time counts down live in a boss bar.
-- **Voucher system** — physical items with PDC-backed identity, shop GUI, and duplicate detection.
-- **Economy integration** — Vault-compatible purchasing via `/flyvoucher buy` or the GUI.
-- **Particle trails** — configurable per-player particle effects with a lockable shop.
-- **PlaceholderAPI support** — expose fly time and fuel values to scoreboards, chat, and GUIs.
-- **Auto-flight rewards** — grant time on a timer, by permission group, or tied to mcMMO skill levels.
-- **Fuel display mode** — optionally show remaining flight as a percentage instead of a countdown.
-- **YAML or MySQL storage** — choose local file or database-backed persistence.
-- **Multilingual messages** — English, Dutch, Spanish, French, Russian, Turkish, and Chinese included.
+- **Timed flight** - players fly for a configured duration; time counts down live in a boss bar.
+- **Voucher system** - physical items with PDC-backed identity, shop GUI, and duplicate detection.
+- **Economy integration** - Vault-compatible purchasing via `/flyvoucher buy` or the GUI.
+- **Particle trails** - configurable per-player particle effects with a lockable shop.
+- **PlaceholderAPI support** - expose fly time and fuel values to scoreboards, chat, and GUIs.
+- **Auto-flight rewards** - grant time on a timer, by permission group, or tied to mcMMO skill levels.
+- **Fuel display mode** - optionally show remaining flight as a percentage instead of a countdown.
+- **YAML or MySQL storage** - choose local file or database-backed persistence.
+- **Multilingual messages** - English, Dutch, Spanish, French, Russian, Turkish, and Chinese included.
 
 ---
 

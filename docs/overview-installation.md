@@ -6,7 +6,7 @@ nav_order: 2
 ## What EzFlyTime does
 
 EzFlyTime adds timed, voucher-powered flight to your server. Players do not get
-permanent flight — they spend vouchers or receive automatic rewards to accumulate
+permanent flight - they spend vouchers or receive automatic rewards to accumulate
 flight time, and the plugin counts it down in real time via a boss bar.
 
 Key capabilities:
@@ -27,10 +27,10 @@ Key capabilities:
 
 Optional soft dependencies (EzFlyTime runs safely without any of these):
 
-- [Vault](https://www.spigotmc.org/resources/vault.34315/) — enables economy features (voucher buying)
-- [EzEconomy](https://modrinth.com/plugin/ezeconomy) — lightweight economy plugin tested with EzFlyTime
-- [PlaceholderAPI](https://modrinth.com/mod/placeholderapi) — exposes fly-time placeholders
-- [mcMMO](https://modrinth.com/plugin/mcmmo) — unlocks skill-level auto-reward tiers
+- [Vault](https://www.spigotmc.org/resources/vault.34315/) / [VaultUnlocked](https://modrinth.com/plugin/vaultunlocked) - enables economy features (voucher buying)
+- [EzEconomy](https://modrinth.com/plugin/ezeconomy) - lightweight economy plugin tested with EzFlyTime
+- [PlaceholderAPI](https://modrinth.com/mod/placeholderapi) - exposes fly-time placeholders
+- [mcMMO](https://modrinth.com/plugin/mcmmo) - unlocks skill-level auto-reward tiers
 
 ---
 
@@ -47,7 +47,7 @@ Optional soft dependencies (EzFlyTime runs safely without any of these):
 
 ### First-start checklist
 
-- Review `vouchers:` in `config.yml` — adjust prices and durations for your economy.
+- Review `vouchers:` in `config.yml` - adjust prices and durations for your economy.
 - Set `storage.type` to `mysql` if you run a multi-instance or high-traffic setup.
 - Install Vault (and an economy provider) if you want players to purchase vouchers in-game.
 - Enable `auto-flight-rewards` if you want players to accumulate time passively.

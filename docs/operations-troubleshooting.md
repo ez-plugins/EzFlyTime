@@ -18,7 +18,7 @@ nav_order: 6
 
 - Verify that `max-single-flight-seconds` in `config.yml` is not set too low.
   Set it to `0` to disable per-session caps.
-- Check whether the player's remaining time reached zero — the boss bar disappears
+- Check whether the player's remaining time reached zero - the boss bar disappears
   and flight is disabled when time runs out.
 - If players have `ezflytime.bypass`, confirm that `bypass-grants-unlimited: true`
   is set and the player has the permission node assigned in their group.
@@ -55,7 +55,7 @@ nav_order: 6
 ## Debug mode
 
 Set `debug: true` in `config.yml` and reload to enable verbose console output.
-Disable it again in production — it significantly increases log volume.
+Disable it again in production - it significantly increases log volume.
 
 ```yaml
 debug: true
