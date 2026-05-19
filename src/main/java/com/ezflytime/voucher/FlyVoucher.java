@@ -25,6 +25,8 @@ public class FlyVoucher {
     private final List<String> lore;
     private final int durationSeconds;
     private final double price;
+    private final List<String> onBuyCommands;
+    private final List<String> onUseCommands;
 
     // Registry to map created ItemStack instances to their generated unique ids.
     // This is a pragmatic fallback to support headless unit tests where
@@ -36,6 +38,10 @@ public class FlyVoucher {
     private static final java.util.Map<Integer, String> createdUniqueIds = java.util.Collections.synchronizedMap(new java.util.HashMap<>());
 
     public FlyVoucher(Plugin plugin, String id, Material material, String displayName, List<String> lore, int durationSeconds, double price) {
+        this(plugin, id, material, displayName, lore, durationSeconds, price, java.util.Collections.emptyList(), java.util.Collections.emptyList());
+    }
+
+    public FlyVoucher(Plugin plugin, String id, Material material, String displayName, List<String> lore, int durationSeconds, double price, List<String> onBuyCommands, List<String> onUseCommands) {
         this.plugin = plugin;
         this.metadataHandler = VoucherMetadataHandlers.resolve(plugin);
         this.id = id;
@@ -49,6 +55,8 @@ public class FlyVoucher {
             line.replace("{minutes}", minutes).replace("{seconds}", seconds))));
         this.durationSeconds = durationSeconds;
         this.price = price;
+        this.onBuyCommands = java.util.Collections.unmodifiableList(new ArrayList<>(onBuyCommands));
+        this.onUseCommands = java.util.Collections.unmodifiableList(new ArrayList<>(onUseCommands));
     }
     public double getPrice() {
         return price;
@@ -60,6 +68,14 @@ public class FlyVoucher {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public List<String> getOnBuyCommands() {
+        return onBuyCommands;
+    }
+
+    public List<String> getOnUseCommands() {
+        return onUseCommands;
     }
 
     public int getDurationSeconds() {

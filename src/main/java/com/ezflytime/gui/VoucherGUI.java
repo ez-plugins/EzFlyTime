@@ -392,6 +392,33 @@ public class VoucherGUI implements Listener {
         if (purchaseSuccessSound != null) {
             player.playSound(player.getLocation(), purchaseSuccessSound, purchaseSuccessVolume, purchaseSuccessPitch);
         }
+
+        executeVoucherCommands(player, voucher.getOnBuyCommands(), voucher, amount);
+    }
+
+    private void executeVoucherCommands(org.bukkit.entity.Player player, List<String> commands, com.ezflytime.voucher.FlyVoucher voucher, int amount) {
+        if (commands == null || commands.isEmpty()) return;
+        org.bukkit.command.CommandSender console = plugin.getServer().getConsoleSender();
+        for (String raw : commands) {
+            String cmd = applyVoucherPlaceholders(raw, player, voucher, amount);
+            String lower = cmd.toLowerCase(java.util.Locale.ROOT);
+            if (lower.startsWith("player:")) {
+                plugin.getServer().dispatchCommand(player, cmd.substring(7).trim());
+            } else if (lower.startsWith("console:")) {
+                plugin.getServer().dispatchCommand(console, cmd.substring(8).trim());
+            } else {
+                plugin.getServer().dispatchCommand(console, cmd);
+            }
+        }
+    }
+
+    private String applyVoucherPlaceholders(String cmd, org.bukkit.entity.Player player, com.ezflytime.voucher.FlyVoucher voucher, int amount) {
+        return cmd
+                .replace("{player}", player.getName())
+                .replace("{voucher}", voucher.getId())
+                .replace("{voucher_name}", org.bukkit.ChatColor.stripColor(voucher.getDisplayName()))
+                .replace("{duration_seconds}", String.valueOf(voucher.getDurationSeconds()))
+                .replace("{amount}", String.valueOf(amount));
     }
 
     @EventHandler
