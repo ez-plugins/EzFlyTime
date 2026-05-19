@@ -20,6 +20,7 @@ nav_order: 4
 | `ezflytime.bypass.spectator` | `false` | Unlimited flight while in Spectator mode (when `allow-spectator-bypass: true`) |
 | `ezflytime.notify` | `op` | Receive voucher duplicate-redemption alerts |
 | `ezflytime.update` | `op` | Receive in-game update notifications |
+| `ezflytime.teams.fly.bypass` | `false` | Exempt from TeamsAPI `claimed-chunks-only` flight restriction |
 
 ## Auto-flight reward permissions
 

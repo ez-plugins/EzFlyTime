@@ -12,3 +12,4 @@ disables only the features that depend on the missing plugin.
 | [Vault / Economy](vault-economy) | Charge players for voucher purchases |
 | [PlaceholderAPI](placeholderapi) | Expose fly-time values in scoreboards, chat, and GUIs |
 | [mcMMO](mcmmo) | Grant flight time based on skill levels |
+| [TeamsAPI](teams-api) | Team command subcommand and claimed-chunks flight restriction |
