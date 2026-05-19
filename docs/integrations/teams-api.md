@@ -41,7 +41,7 @@ teams:
 
 Once registered, players can toggle EzFlyTime flight from the team command:
 
-```
+```text
 /f fly
 ```
 

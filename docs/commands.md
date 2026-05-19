@@ -43,7 +43,7 @@ Voucher-related commands.
 When [TeamsAPI](https://modrinth.com/plugin/teams-api) is installed, EzFlyTime
 registers a `fly` subcommand inside the team plugin's command tree.
 
-```
+```text
 /f fly
 ```
 
