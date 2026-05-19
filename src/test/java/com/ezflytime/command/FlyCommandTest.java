@@ -337,4 +337,48 @@ class FlyCommandTest extends CommandTestBase {
         // giving the target two notifications.  Fix: call setTime(target, 300, false).
         verify(flyTimeManager).setTime(target, 300, false);
     }
+
+    // =========================================================================
+    // Issue 7 – /flytime (no args) opens GUI for regular players
+    // =========================================================================
+
+    /**
+     * Previously, {@code FlyCommand} guarded the no-arg {@code /flytime} GUI
+     * path with {@code player.hasPermission("ezflytime.buy")}.  Because
+     * {@code ezflytime.buy} was not declared in {@code plugin.yml} it defaulted
+     * to OP-only, so regular players (with only {@code ezflytime.flytime})
+     * never reached {@code VoucherGUI.openGUI()} and always got the
+     * "You have 0s of fly time remaining" message instead of the shop.
+     *
+     * <p>The fix removes the redundant pre-check from {@code FlyCommand} and
+     * declares {@code ezflytime.buy} in {@code plugin.yml} with
+     * {@code default: true}.  Delegation of the permission decision moves
+     * entirely into {@code VoucherGUI.openGUI()}.
+     */
+    @Test
+    void noArgFlytimeOpensGuiForRegularPlayer() {
+        // Arrange – a regular player: has flytime perm but NOT ezflytime.buy
+        com.ezflytime.config.ConfigManager configManager = mock(com.ezflytime.config.ConfigManager.class);
+        com.ezflytime.gui.VoucherGUI voucherGUI = mock(com.ezflytime.gui.VoucherGUI.class);
+
+        when(serviceRegistry.getConfigManager()).thenReturn(configManager);
+        when(configManager.isVoucherShopEnabled()).thenReturn(true);
+        when(serviceRegistry.getVoucherGUI()).thenReturn(voucherGUI);
+
+        Player player = mock(Player.class, org.mockito.Answers.RETURNS_DEEP_STUBS);
+        when(player.hasPermission("ezflytime.buy")).thenReturn(false); // regular player
+        when(player.hasPermission("ezflytime.flytime")).thenReturn(true);
+
+        Command command = mock(Command.class);
+        when(command.getName()).thenReturn("flytime");
+
+        FlyCommand subject = new FlyCommand(plugin);
+
+        // Act
+        boolean result = subject.onCommand(player, command, "flytime", new String[0]);
+
+        // Assert – openGUI must be called regardless of ezflytime.buy
+        assert result;
+        verify(voucherGUI).openGUI(player);
+    }
 }
