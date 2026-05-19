@@ -147,6 +147,7 @@ jobs:
           dependencies: |
             placeholderapi(optional)
             vaultunlocked(optional)
+            teams-api(optional)
 
       # ──────────────────────────────────────────────────────────────────────
       #  8. DISCORD NOTIFICATION

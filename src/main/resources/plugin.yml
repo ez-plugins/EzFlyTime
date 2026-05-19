@@ -8,6 +8,7 @@ softdepend:
   - Vault
   - VaultUnlocked
   - EzEconomy
+  - TeamsAPI
 commands:
   flyvoucher:
     description: Give configurable fly vouchers to players
@@ -58,6 +59,9 @@ permissions:
   ezflytime.admin:
     description: Allows access to EzFlyTime administration commands
     default: op
+  ezflytime.teams.fly.bypass:
+    description: Exempts player from the teams claimed-chunks-only flight restriction
+    default: false
   ezflytime.maxsingle.manage:
     description: Allows managing the max single-flight bypass command
     default: op

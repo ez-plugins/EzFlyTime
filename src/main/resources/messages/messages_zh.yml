@@ -63,6 +63,9 @@ messages:
   help-reload: '&e/ezflytime reload &7- Reload all configuration files'
   help-maxsingle: '&e/ezflytime maxsingle <player> [on|off|toggle] &7- Bypass max single flight time'
   help-help: '&e/ezflytime help &7- Show this help message'
+  teams-no-fly-unclaimed: '&c你只能在你队伍的领地内飞行。'
+  teams-fly-zone-left: '&c飞行已禁用 - 你离开了队伍的领地。'
+  teams-not-in-team: '&c你必须加入一个队伍才能在此处飞行。'
 
   particle-not-for-sale: '此粒子不可出售。'
   particle-unlocked: '{particle} 已解锁。'

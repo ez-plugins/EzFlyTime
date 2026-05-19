@@ -152,6 +152,18 @@ bossbar:
 #
 # You can add more vouchers by copying the structure below.
 # Players can redeem vouchers with /flytime voucher <name>
+# TeamsAPI Integration
+# Requires TeamsAPI (https://modrinth.com/plugin/teams-api) to be installed.
+teams:
+  # Set to false to completely disable TeamsAPI integration even when the plugin is present.
+  enabled: true
+  # When true, EzFlyTime flight is only allowed inside your team's claimed chunks.
+  # Requires a claim-capable team plugin (TeamsClaimService must be available).
+  # Players not in a team, or flying into unclaimed / enemy territory, will have their
+  # flight disabled automatically.
+  # Players with the ezflytime.teams.fly.bypass permission are exempt.
+  claimed-chunks-only: false
+
 # Voucher shop settings
 # - enabled: Whether the in-game voucher shop GUI is available
 voucher-shop:

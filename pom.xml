@@ -87,6 +87,12 @@
             <version>1.7.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.ez-plugins</groupId>
+            <artifactId>teams-api</artifactId>
+            <version>1.8.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

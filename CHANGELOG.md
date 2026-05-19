@@ -14,6 +14,18 @@ then re-apply your customisations.
 
 ### Added
 
+- **TeamsAPI integration** (optional soft dependency) - integrates with
+  [TeamsAPI](https://modrinth.com/plugin/teams-api) when the plugin is present:
+  - Registers a `/f fly` subcommand in the team plugin's command tree so players
+    can toggle EzFlyTime flight from within their team commands.
+  - New `teams.claimed-chunks-only` config option (default `false`): when enabled,
+    EzFlyTime-managed flight is restricted to the player's own team-claimed chunks.
+    Entering an unclaimed or enemy chunk mid-flight automatically lands the player.
+  - New `teams.enabled` config toggle to disable the integration entirely.
+  - New permission `ezflytime.teams.fly.bypass` (default `false`): exempts a player
+    from the claimed-chunks-only restriction.
+  - New message keys: `teams-no-fly-unclaimed`, `teams-fly-zone-left`,
+    `teams-not-in-team` (all 8 locales).
 - **Timed flight system** - players now have a flight-time balance instead of
   unlimited flight.  The remaining time counts down live and is shown in a
   boss bar above the screen.
