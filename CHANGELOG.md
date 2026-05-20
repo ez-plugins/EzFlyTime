@@ -5,6 +5,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [3.0.1] - 2026-05-20
+
+### Fixed
+
+- **[TeamsAPI](https://modrinth.com/plugin/teams-api) soft-dependency crash** - `NoClassDefFoundError: com/skyblockexp/teamsapi/api/TeamsSubcommand`
+  was thrown on startup whenever TeamsAPI was absent. Bukkit's class loader
+  eagerly loads field-type classes in the same jar, so `FlySubcommand` (and
+  transitively its `TeamsSubcommand` interface) was resolved the moment
+  `TeamsIntegration` was instantiated — before any availability guard ran.
+  The `flySubcommand` field is now typed as `Object`; all TeamsAPI references
+  remain in method bodies and are resolved lazily at execution time.
+
+### Added
+
+- **`{time}` placeholder in `flight-disabled` message** - the remaining flight
+  time is now substituted into `flight-disabled` messages (e.g.
+  `&cFlight disabled. Remaining time: {time}.`). Updated all 8 bundled locales
+  (en, nl, de, fr, es, ru, tr, zh) to include the placeholder by default.
+
+---
+
 ## [3.0.0] - 2026-05-19
 
 This release is a major overhaul of EzFlyTime.  Nearly every system has been

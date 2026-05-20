@@ -17,7 +17,7 @@ messages:
   flight-ended: '&cUçuş süreniz sona erdi.'
   flight-enabled: '&aUçuş etkinleştirildi. Kalan süre: {time}.'
   flight-enabled-unlimited: '&aUçuş etkinleştirildi. Sınırsız uçuşun tadını çıkarın.'
-  flight-disabled: '&cUçuş devre dışı bırakıldı.'
+  flight-disabled: '&cUçuş devre dışı bırakıldı. Kalan süre: {time}.'
   flight-no-time: '&cHiç uçuş süreniz kalmadı.'
   flight-time-remaining: '&a{time} uçuş süreniz kaldı.'
   flight-time-unlimited: '&aSınırsız uçuş süreniz var.'

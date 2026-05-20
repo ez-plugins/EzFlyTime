@@ -151,7 +151,9 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             player.setFlying(false);
             player.setAllowFlight(false);
             flyTimeManager.pauseCountdown(player);
-            player.sendMessage(plugin.getMessage("messages.flight-disabled"));
+            int seconds = flyTimeManager.getRemainingSeconds(player);
+            player.sendMessage(plugin.getMessage("messages.flight-disabled")
+                    .replace("{time}", formatCompact(seconds)));
             return;
         }
 
