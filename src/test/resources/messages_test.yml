@@ -2,7 +2,7 @@ messages:
   player-only: "You must be a player to run this command."
   flight-enabled: "enabled {time}"
   flight-enabled-unlimited: "enabled unlimited"
-  flight-disabled: "disabled"
+  flight-disabled: "disabled {time}"
   flight-no-time: "no time"
   flight-time-remaining: "remaining {time}"
   flight-fuel-remaining: "fuel {fuel}%"

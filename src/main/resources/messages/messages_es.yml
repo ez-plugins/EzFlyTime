@@ -17,7 +17,7 @@ messages:
   flight-ended: '&cTu tiempo de vuelo ha expirado.'
   flight-enabled: '&aVuelo habilitado. Tiempo restante: {time}.'
   flight-enabled-unlimited: '&aVuelo habilitado. Disfruta de vuelo ilimitado.'
-  flight-disabled: '&cVuelo deshabilitado.'
+  flight-disabled: '&cVuelo deshabilitado. Tiempo restante: {time}.'
   flight-no-time: '&cNo te queda tiempo de vuelo.'
   flight-time-remaining: '&aTienes {time} de tiempo de vuelo restante.'
   flight-time-unlimited: '&aTienes tiempo de vuelo ilimitado.'

@@ -17,7 +17,7 @@ messages:
   flight-ended: '&cJe vluchttijd is verlopen.'
   flight-enabled: '&aVlucht ingeschakeld. Resterende tijd: {time}.'
   flight-enabled-unlimited: '&aVlucht ingeschakeld. Geniet van onbeperkt vliegen.'
-  flight-disabled: '&cVlucht uitgeschakeld.'
+  flight-disabled: '&cVlucht uitgeschakeld. Resterende tijd: {time}.'
   flight-no-time: '&cJe hebt geen vluchttijd meer over.'
   flight-time-remaining: '&aJe hebt {time} vluchttijd over.'
   flight-time-unlimited: '&aJe hebt onbeperkte vluchttijd.'

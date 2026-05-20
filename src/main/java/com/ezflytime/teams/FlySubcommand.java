@@ -74,7 +74,9 @@ public class FlySubcommand implements TeamsSubcommand {
             player.setFlying(false);
             player.setAllowFlight(false);
             ftm.pauseCountdown(player);
-            player.sendMessage(plugin.getMessage("messages.flight-disabled"));
+            int seconds = ftm.getRemainingSeconds(player);
+            player.sendMessage(plugin.getMessage("messages.flight-disabled")
+                    .replace("{time}", com.ezflytime.util.TimeFormatter.formatCompact(seconds)));
             return;
         }
 
