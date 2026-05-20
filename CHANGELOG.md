@@ -5,17 +5,35 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [3.0.2] - 2026-05-20
+
+### Changed
+
+- **TeamsAPI dependency bumped 1.8.0 → 2.0.0** - the 2.0.0 release adds
+  `TeamRelation.MEMBER` and adjusts the default colours of `ALLY` and `TRUCE`.
+  EzFlyTime does not use `TeamRelation`, so no code changes were required.
+
+### Added
+
+- **TeamsAPI integration smoke tests** - 112 parameterized tests across all
+  compatible server software (Paper, Spigot, Purpur, Folia) and Minecraft
+  versions (1.16.5 – 1.21.5) guard against regressions of the
+  `NoClassDefFoundError` crash fixed in 3.0.1.
+
 ## [3.0.1] - 2026-05-20
 
 ### Fixed
 
 - **[TeamsAPI](https://modrinth.com/plugin/teams-api) soft-dependency crash** - `NoClassDefFoundError: com/skyblockexp/teamsapi/api/TeamsSubcommand`
-  was thrown on startup whenever TeamsAPI was absent. Bukkit's class loader
-  eagerly loads field-type classes in the same jar, so `FlySubcommand` (and
-  transitively its `TeamsSubcommand` interface) was resolved the moment
-  `TeamsIntegration` was instantiated — before any availability guard ran.
-  The `flySubcommand` field is now typed as `Object`; all TeamsAPI references
-  remain in method bodies and are resolved lazily at execution time.
+  was thrown on startup whenever TeamsAPI was absent. The JVM's bytecode
+  verifier resolves `FlySubcommand` (and transitively `TeamsSubcommand`) when
+  `TeamsIntegration` is first class-loaded or its methods are first invoked —
+  before any runtime `getPlugin("TeamsAPI")` guard inside the class can run.
+  `StartupBootstrap` now guards the `new TeamsIntegration(…)` call behind a
+  `getPlugin("TeamsAPI") != null` check so the class (and its TeamsAPI
+  dependencies) are never loaded when TeamsAPI is absent. A `Throwable` catch
+  around the block also handles servers where TeamsAPI is installed but at an
+  incompatible API version.
 
 ### Added
 

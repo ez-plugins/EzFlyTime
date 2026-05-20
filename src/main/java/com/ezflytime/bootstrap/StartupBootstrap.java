@@ -108,9 +108,21 @@ public class StartupBootstrap {
         placeholderIntegration.registerIfAvailable();
         registry.setPlaceholderIntegration(placeholderIntegration);
 
-        com.ezflytime.teams.TeamsIntegration teamsIntegration = new com.ezflytime.teams.TeamsIntegration(plugin);
-        teamsIntegration.registerIfAvailable();
-        registry.setTeamsIntegration(teamsIntegration);
+        // TeamsIntegration (and transitively FlySubcommand / TeamsSubcommand) must
+        // never be class-loaded when TeamsAPI is absent: bytecode verification of
+        // TeamsIntegration's methods triggers FlySubcommand loading, which requires
+        // TeamsSubcommand, before any runtime guard inside the class can fire.
+        if (plugin.getServer().getPluginManager().getPlugin("TeamsAPI") != null) {
+            try {
+                com.ezflytime.teams.TeamsIntegration teamsIntegration = new com.ezflytime.teams.TeamsIntegration(plugin);
+                teamsIntegration.registerIfAvailable();
+                registry.setTeamsIntegration(teamsIntegration);
+            } catch (Throwable t) {
+                plugin.getLogger().warning("TeamsAPI integration failed to initialise (incompatible API?): " + t.getMessage());
+            }
+        } else {
+            plugin.getLogger().info("TeamsAPI not found. Team subcommand and claimed-chunks restriction disabled.");
+        }
 
         // Initialize bStats metrics via dedicated manager
         try {
