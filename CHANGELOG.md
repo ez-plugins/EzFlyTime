@@ -9,7 +9,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-- **TeamsAPI soft-dependency crash** - `NoClassDefFoundError: com/skyblockexp/teamsapi/api/TeamsSubcommand`
+- **[TeamsAPI](https://modrinth.com/plugin/teams-api) soft-dependency crash** - `NoClassDefFoundError: com/skyblockexp/teamsapi/api/TeamsSubcommand`
   was thrown on startup whenever TeamsAPI was absent. Bukkit's class loader
   eagerly loads field-type classes in the same jar, so `FlySubcommand` (and
   transitively its `TeamsSubcommand` interface) was resolved the moment
