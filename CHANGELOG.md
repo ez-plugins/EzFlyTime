@@ -9,7 +9,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- **TeamsAPI dependency bumped 1.8.0 → 2.0.0** - the 2.0.0 release adds
+- **[TeamsAPI](https://modrinth.com/plugin/teams-api) dependency bumped 1.8.0 → 2.0.0** - the 2.0.0 release adds
   `TeamRelation.MEMBER` and adjusts the default colours of `ALLY` and `TRUCE`.
   EzFlyTime does not use `TeamRelation`, so no code changes were required.
 
@@ -19,6 +19,22 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   compatible server software (Paper, Spigot, Purpur, Folia) and Minecraft
   versions (1.16.5 – 1.21.5) guard against regressions of the
   `NoClassDefFoundError` crash fixed in 3.0.1.
+
+### Fixed
+
+- **Spurious `particle-shop-gui.yml` save warning** - `StartupBootstrap` called
+  `saveResource("particle-shop-gui.yml", false)` unconditionally on every startup,
+  producing `Could not save … because … already exists` after the first run.
+  The call was redundant: `ParticleShopGUI` already guards the same `saveResource`
+  behind an existence check, so the `StartupBootstrap` call has been removed.
+
+- **[TeamsAPI](https://modrinth.com/plugin/teams-api) soft-dependency crash** - `NoClassDefFoundError: com/skyblockexp/teamsapi/api/TeamsSubcommand`
+  was thrown on startup whenever TeamsAPI was absent. Bukkit's class loader
+  eagerly loads field-type classes in the same jar, so `FlySubcommand` (and
+  transitively its `TeamsSubcommand` interface) was resolved the moment
+  `TeamsIntegration` was instantiated, before any availability guard ran.
+  The `flySubcommand` field is now typed as `Object`; all TeamsAPI references
+  remain in method bodies and are resolved lazily at execution time.
 
 ## [3.0.1] - 2026-05-20
 
