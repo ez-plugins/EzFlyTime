@@ -24,6 +24,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `&cFlight disabled. Remaining time: {time}.`). Updated all 8 bundled locales
   (en, nl, de, fr, es, ru, tr, zh) to include the placeholder by default.
 
+---
+
+## [3.0.0] - 2026-05-19
+
 This release is a major overhaul of EzFlyTime.  Nearly every system has been
 rewritten or significantly extended.  **Existing `config.yml` and message files
 will need to be updated** - delete them and let the plugin regenerate defaults,
