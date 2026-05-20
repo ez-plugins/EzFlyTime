@@ -87,8 +87,6 @@ public class StartupBootstrap {
 
         // Particle shop GUI (optional)
         if (plugin.getConfig().getBoolean("particle-shop.enabled", true)) {
-            // Ensure default GUI resource exists
-            plugin.saveResource("particle-shop-gui.yml", false);
             com.ezflytime.gui.ParticleShopGUI particleShopGUI = new com.ezflytime.gui.ParticleShopGUI(plugin);
             com.ezflytime.gui.ParticleSelectGUI particleSelectGUI = new com.ezflytime.gui.ParticleSelectGUI(plugin);
             registry.setParticleShopGUI(particleShopGUI);
