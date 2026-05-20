@@ -31,7 +31,7 @@ import java.util.Optional;
 public class TeamsIntegration implements Listener {
 
     private final EzFlyTimePlugin plugin;
-    private FlySubcommand flySubcommand;
+    private Object flySubcommand; // stores FlySubcommand; typed as Object to prevent eager class-loading of TeamsSubcommand when TeamsAPI is absent
     private boolean listenerRegistered = false;
 
     public TeamsIntegration(EzFlyTimePlugin plugin) {
@@ -54,8 +54,9 @@ public class TeamsIntegration implements Listener {
         }
 
         try {
-            flySubcommand = new FlySubcommand(plugin);
-            TeamsAPI.registerSubcommand(plugin, flySubcommand);
+            FlySubcommand cmd = new FlySubcommand(plugin);
+            TeamsAPI.registerSubcommand(plugin, cmd);
+            flySubcommand = cmd;
             plugin.getLogger().info("Registered TeamsAPI /fly subcommand.");
         } catch (Throwable t) {
             plugin.getLogger().warning("Error registering TeamsAPI subcommand: " + t.getMessage());
@@ -76,7 +77,7 @@ public class TeamsIntegration implements Listener {
     public void unregister() {
         if (flySubcommand != null) {
             try {
-                TeamsAPI.unregisterSubcommand(flySubcommand);
+                TeamsAPI.unregisterSubcommand((FlySubcommand) flySubcommand);
             } catch (Throwable t) {
                 plugin.getLogger().warning("Error unregistering TeamsAPI subcommand: " + t.getMessage());
             }
