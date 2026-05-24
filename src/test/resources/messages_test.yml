@@ -3,6 +3,7 @@ messages:
   flight-enabled: "enabled {time}"
   flight-enabled-unlimited: "enabled unlimited"
   flight-disabled: "disabled {time}"
+  flight-disabled-unlimited: "disabled unlimited"
   flight-no-time: "no time"
   flight-time-remaining: "remaining {time}"
   flight-fuel-remaining: "fuel {fuel}%"
