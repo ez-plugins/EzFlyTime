@@ -18,6 +18,7 @@ messages:
   flight-enabled: '&aПолёт включён. Осталось времени: {time}.'
   flight-enabled-unlimited: '&aПолёт включён. Наслаждайтесь неограниченным полётом.'
   flight-disabled: '&cПолёт отключён. Осталось времени: {time}.'
+  flight-disabled-unlimited: '&cПолёт отключён.'
   flight-no-time: '&cУ вас не осталось времени полёта.'
   flight-time-remaining: '&aУ вас осталось {time} времени полёта.'
   flight-time-unlimited: '&aУ вас неограниченное время полёта.'

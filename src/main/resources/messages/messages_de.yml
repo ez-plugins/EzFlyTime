@@ -20,6 +20,7 @@ messages:
   flight-enabled-fuel: '&aFlug aktiviert. Verbleibender Treibstoff: {fuel}%.'
   flight-enabled-unlimited: '&aFlug aktiviert. Genieße unbegrenzten Flug.'
   flight-disabled: '&cFlug deaktiviert. Verbleibende Zeit: {time}.'
+  flight-disabled-unlimited: '&cFlug deaktiviert.'
   flight-no-time: '&cDu hast keine Flugzeit mehr.'
   flight-time-remaining: '&aDu hast noch {time} Flugzeit.'
   flight-fuel-remaining: '&aDu hast noch {fuel}% Flug-Treibstoff.'

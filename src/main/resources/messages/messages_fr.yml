@@ -18,6 +18,7 @@ messages:
   flight-enabled: '&aVol activé. Temps restant : {time}.'
   flight-enabled-unlimited: '&aVol activé. Profitez du vol illimité.'
   flight-disabled: '&cVol désactivé. Temps restant : {time}.'
+  flight-disabled-unlimited: '&cVol désactivé.'
   flight-no-time: '&cVous n\'avez plus de temps de vol.'
   flight-time-remaining: '&aIl vous reste {time} de vol.'
   flight-time-unlimited: '&aVous avez un temps de vol illimité.'

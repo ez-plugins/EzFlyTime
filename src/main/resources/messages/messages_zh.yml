@@ -18,6 +18,7 @@ messages:
   flight-enabled: '&a飞行已启用。剩余时间: {time}。'
   flight-enabled-unlimited: '&a飞行已启用。享受无限飞行。'
   flight-disabled: '&c飞行已禁用。剩余时间: {time}。'
+  flight-disabled-unlimited: '&c飞行已禁用。'
   flight-no-time: '&c你没有剩余飞行时间。'
   flight-time-remaining: '&a你还有 {time} 飞行时间。'
   flight-time-unlimited: '&a你拥有无限飞行时间。'

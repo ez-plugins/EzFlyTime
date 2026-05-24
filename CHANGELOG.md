@@ -5,6 +5,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [3.0.3] - 2026-05-24
+
+### Changed
+
+- **Split unlimited-flight disabled message** - Show a different message when a player disables flight while they have unlimited flight. Added the `flight-disabled-unlimited` message key and updated the command and teams subcommand to use it when appropriate.
+
 ## [3.0.2] - 2026-05-20
 
 ### Changed

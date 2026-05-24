@@ -70,18 +70,22 @@ public class FlySubcommand implements TeamsSubcommand {
     }
 
     private void toggleFlight(Player player, FlyTimeManager ftm) {
+        ConfigManager cm = plugin.getServiceRegistry() != null
+                ? plugin.getServiceRegistry().getConfigManager() : null;
         if (player.getAllowFlight()) {
             player.setFlying(false);
             player.setAllowFlight(false);
             ftm.pauseCountdown(player);
-            int seconds = ftm.getRemainingSeconds(player);
-            player.sendMessage(plugin.getMessage("messages.flight-disabled")
-                    .replace("{time}", com.ezflytime.util.TimeFormatter.formatCompact(seconds)));
+            if (hasUnlimitedFlight(player, cm)) {
+                player.sendMessage(plugin.getMessage("messages.flight-disabled-unlimited"));
+            } else {
+                int seconds = ftm.getRemainingSeconds(player);
+                player.sendMessage(plugin.getMessage("messages.flight-disabled")
+                        .replace("{time}", com.ezflytime.util.TimeFormatter.formatCompact(seconds)));
+            }
             return;
         }
 
-        ConfigManager cm = plugin.getServiceRegistry() != null
-                ? plugin.getServiceRegistry().getConfigManager() : null;
         boolean bypassUnlimited = cm != null && cm.hasBypassUnlimitedFlight(player);
 
         if (!bypassUnlimited && !hasUnlimitedFlight(player, cm)) {
