@@ -5,7 +5,7 @@
 
     <groupId>com.ezflytime</groupId>
     <artifactId>ezflytime</artifactId>
-    <version>3.0.3</version>
+    <version>3.0.4</version>
     <properties>
         <junit.version>5.9.3</junit.version>
         <byte-buddy.version>1.17.7</byte-buddy.version>
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.1</version>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

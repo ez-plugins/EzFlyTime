@@ -1,6 +1,7 @@
 name: EzFlyTime
 version: ${project.version}
 main: com.ezflytime.EzFlyTimePlugin
+api-version: 1.13
 author: Shadow48402
 softdepend:
   - PlaceholderAPI
