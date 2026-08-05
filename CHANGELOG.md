@@ -17,6 +17,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   items no longer expose internal attribute modifiers or NBT metadata in the
   item tooltip.  Set `hide-voucher-nbt: false` in `config.yml` to restore the
   previous behaviour.
+- **Multi-line message support** - configurable messages in `messages_*.yml` can
+  now contain literal `\n` sequences to split a single message across multiple
+  chat lines.  This is useful for longer notifications such as the update
+  available message, which now displays version and download details on
+  separate lines.
 
 ### Changed
 
