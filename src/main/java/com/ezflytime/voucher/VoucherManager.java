@@ -53,6 +53,7 @@ public class VoucherManager implements Listener {
     public void reload() {
         vouchers.clear();
         dupeDetectionEnabled = plugin.getConfig().getBoolean("detect-voucher-dupes", true);
+        boolean hideNbt = plugin.getConfig().getBoolean("hide-voucher-nbt", true);
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("vouchers");
         if (section == null) {
             plugin.getLogger().warning("No vouchers defined in config.yml");
@@ -100,7 +101,7 @@ public class VoucherManager implements Listener {
             }
             List<String> onBuyCommands = voucherSection.getStringList("on-buy-commands");
             List<String> onUseCommands = voucherSection.getStringList("on-use-commands");
-            FlyVoucher voucher = new FlyVoucher(plugin, id, material, name, lore, duration, price, onBuyCommands, onUseCommands);
+            FlyVoucher voucher = new FlyVoucher(plugin, id, material, name, lore, duration, price, onBuyCommands, onUseCommands, hideNbt);
             vouchers.put(id.toLowerCase(), voucher);
         }
     }

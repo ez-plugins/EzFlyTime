@@ -62,6 +62,10 @@ public class ConfigManager {
         return plugin.getConfig().getBoolean("voucher-shop.enabled", true);
     }
 
+    public boolean isVoucherHideNbtEnabled() {
+        return plugin.getConfig().getBoolean("hide-voucher-nbt", true);
+    }
+
     public String getMessage(String path) {
         String prefix = getMessageValue("messages.prefix");
         String message = getMessageValue(path);

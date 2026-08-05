@@ -5,6 +5,21 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [3.0.4] - 2026-08-05
+
+### Added
+
+- **`hide-voucher-nbt` config option** (default: `true`) - when enabled, voucher
+  items no longer expose internal attribute modifiers or NBT metadata in the
+  item tooltip.  Set `hide-voucher-nbt: false` in `config.yml` to restore the
+  previous behaviour.
+
+### Changed
+
+- **Voucher item flags now use the direct Bukkit API** - replaced the legacy
+  reflection-based `addItemFlags` call with `ItemMeta.addItemFlags(ItemFlag…)`
+  so voucher tooltips are hidden consistently across Spigot, Paper, and Purpur.
+
 ## [3.0.3] - 2026-05-24
 
 ### Changed
