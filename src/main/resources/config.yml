@@ -145,6 +145,21 @@ bossbar:
     # Example: '&bSpeed: {speed} b/s' or just '{speed} b/s'
     speed-format: '&bSpeed: {speed} b/s'
 
+# Action Bar Configuration
+# Shows flight time via text above the player's hotbar instead of a boss bar.
+# - enabled: Whether to show the action bar
+# - title: Text shown on the action bar (supports color codes and {time}, {speed} placeholders)
+actionbar:
+  enabled: false
+  title: '&aFlight time remaining: {time}'
+  # Optional speed counter shown in the action bar
+  # Enable to show current horizontal speed (blocks per second) in the title.
+  # Use {speed} placeholder in `speed-format` or include {speed} in the `title`.
+  speed-counter:
+    enabled: false
+    # Example: '&bSpeed: {speed} b/s' or just '{speed} b/s'
+    speed-format: '&bSpeed: {speed} b/s'
+
 # Voucher Configuration
 # Defines flight time vouchers that players can purchase or receive.
 # Each voucher has:

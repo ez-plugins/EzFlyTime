@@ -22,6 +22,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   chat lines.  This is useful for longer notifications such as the update
   available message, which now displays version and download details on
   separate lines.
+- **Action bar flight display** - optional `actionbar:` section in `config.yml`
+  lets you show remaining flight time (and optional horizontal speed) above
+  players' hotbars instead of, or alongside, the existing boss bar.  Enable
+  with `actionbar.enabled: true` and customise the title and speed counter
+  independently of the boss bar settings.  Supports the same placeholders
+  as the boss bar: `{time}`, `{seconds}`, `{fuel}`, and `{speed}`.
 
 ### Changed
 
