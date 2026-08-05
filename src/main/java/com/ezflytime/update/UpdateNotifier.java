@@ -22,9 +22,10 @@ public class UpdateNotifier implements Listener {
         if (!event.getPlayer().hasPermission("ezflytime.update")) {
             return;
         }
-        event.getPlayer().sendMessage(plugin.getMessage("messages.update-available")
+        String message = plugin.getMessage("messages.update-available")
                 .replace("{current}", result.getCurrentVersion())
                 .replace("{latest}", result.getLatestVersion())
-                .replace("{url}", result.getDownloadUrl()));
+                .replace("{url}", result.getDownloadUrl());
+        plugin.sendMessage(event.getPlayer(), message);
     }
 }

@@ -97,6 +97,17 @@ public class EzFlyTimePlugin extends JavaPlugin {
         return cm != null ? cm.getMessage(path) : path;
     }
 
+    public void sendMessage(org.bukkit.entity.Player player, String message) {
+        if (player == null || message == null || message.isEmpty()) {
+            return;
+        }
+        for (String line : message.split("\n", -1)) {
+            if (!line.isEmpty()) {
+                player.sendMessage(line);
+            }
+        }
+    }
+
     public void reloadPluginConfiguration() {
         if (startupBootstrap != null) {
             startupBootstrap.reload();

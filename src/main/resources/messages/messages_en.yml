@@ -36,7 +36,7 @@ messages:
   buy-success: '&aYou bought {amount}x {voucher} for {price} {currency}.'
   buy-inventory-full: '&eYour inventory was full. Dropped {amount}x {voucher} at your feet.'
   shop-disabled: '&cThe flight shop is disabled.'
-  update-available: '&eAn EzFlyTime update is available: {current} -> {latest}. Download: {url}'
+  update-available: '&eAn EzFlyTime update is available:\n&7Current version: {current}\n&7Latest version: {latest}\n&eDownload: {url}'
   update-check-failed: '&cUnable to check for updates: {reason}'
   update-up-to-date: '&aEzFlyTime is up to date (version {version}).'
   flytime-usage: '&cUsage: /flytime {command} <player> <time>'

@@ -104,7 +104,10 @@ public class ConfigManager {
     }
 
     private String translateColorCodes(String input) {
-        return input == null ? "" : input.replace("&", "§");
+        if (input == null) {
+            return "";
+        }
+        return input.replace("\\n", "\n").replace("&", "§");
     }
 
     private void saveDefaultMessages() {
