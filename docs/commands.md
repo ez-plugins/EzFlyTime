@@ -85,6 +85,7 @@ Plugin administration.
 | :--- | :--- |
 | `reload` | Reload all configuration files and recreate managers. |
 | `maxsingle <player> [on\|off\|toggle]` | Grant or revoke the per-session max-flight bypass for a player. |
+| `info <player>` | Show a player's remaining flight time, active voucher, flying state, and bypass status. |
 | `help` | Show the admin help message. |
 
 ---
@@ -99,4 +100,5 @@ Plugin administration.
 /ezflytime reload               - reload config
 /flyvoucher give Steve basic 3 - give Steve 3 basic vouchers
 /ezflytime maxsingle Steve on  - exempt Steve from per-session limit
+/ezflytime info Steve          - show Steve's flight info
 ```

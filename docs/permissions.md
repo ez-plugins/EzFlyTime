@@ -12,6 +12,7 @@ nav_order: 4
 | `ezflytime.top` | `true` | View the fly-time leaderboard with `/flytime top` |
 | `ezflytime.give` | `op` | Give vouchers to players with `/flyvoucher give` |
 | `ezflytime.reload` | `op` | Reload configuration with `/flytime reload` or `/ezflytime reload` |
+| `ezflytime.info` | `op` | View player flight info with `/ezflytime info <player>` |
 | `ezflytime.admin` | `op` | Access all `/ezflytime` administration subcommands |
 | `ezflytime.maxsingle.manage` | `op` | Manage the per-session bypass with `/ezflytime maxsingle` |
 | `ezflytime.maxsingle.bypass` | `false` | Bypass the `max-single-flight-seconds` limit |

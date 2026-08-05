@@ -40,6 +40,7 @@ public class VoucherManager implements Listener {
     private final Map<UUID, LastVoucherUse> recentMainHandUses = new HashMap<>();
     private static final String DUPLICATE_ALERT_PERMISSION = "ezflytime.notify";
     private final Queue<String> pendingDuplicateAlerts = new ArrayDeque<>();
+    private final Map<UUID, FlyVoucher> activeVouchers = new HashMap<>();
     private final Map<UUID, Long> playerRedemptionCooldowns = new HashMap<>();
     private static final long REDEMPTION_COOLDOWN_MS = 1000L; // 1 second cooldown between redemptions
 
@@ -52,6 +53,7 @@ public class VoucherManager implements Listener {
 
     public void reload() {
         vouchers.clear();
+        activeVouchers.clear();
         dupeDetectionEnabled = plugin.getConfig().getBoolean("detect-voucher-dupes", true);
         boolean hideNbt = plugin.getConfig().getBoolean("hide-voucher-nbt", true);
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("vouchers");
@@ -117,6 +119,27 @@ public class VoucherManager implements Listener {
         return Collections.unmodifiableSet(vouchers.keySet());
     }
 
+    public void recordVoucherRedemption(UUID uuid, FlyVoucher voucher) {
+        if (uuid == null || voucher == null) {
+            return;
+        }
+        activeVouchers.put(uuid, voucher);
+    }
+
+    public FlyVoucher getActiveVoucher(UUID uuid) {
+        if (uuid == null) {
+            return null;
+        }
+        return activeVouchers.get(uuid);
+    }
+
+    public void clearActiveVoucher(UUID uuid) {
+        if (uuid == null) {
+            return;
+        }
+        activeVouchers.remove(uuid);
+    }
+
     @EventHandler
     public void onVoucherUse(PlayerInteractEvent event) {
         Action action = event.getAction();
@@ -178,6 +201,7 @@ public class VoucherManager implements Listener {
         }
         plugin.getServiceRegistry().getFlyTimeManager().addTime(player, voucher.getDurationSeconds(), false);
         consumeItem(player, hand);
+        recordVoucherRedemption(player.getUniqueId(), voucher);
         if (uniqueId != null) {
             consumedVoucherIds.add(uniqueId);
             storage.saveConsumedVoucherIds(consumedVoucherIds);

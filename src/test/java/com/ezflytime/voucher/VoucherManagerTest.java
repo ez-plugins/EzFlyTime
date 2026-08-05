@@ -312,4 +312,72 @@ class VoucherManagerTest {
         verify(admin).sendMessage(messageCaptor.capture());
         assertEquals("Alert: VoucherUser " + templateVoucher.getDisplayName(), messageCaptor.getValue());
     }
+
+    @Test
+    void recordVoucherRedemptionStoresActiveVoucher() {
+        EzFlyTimePlugin ezPlugin = mock(EzFlyTimePlugin.class, Answers.RETURNS_DEEP_STUBS);
+        YamlConfiguration configuration = new YamlConfiguration();
+        configuration.set("vouchers.basic.material", "PAPER");
+        configuration.set("vouchers.basic.name", "&aBasic Voucher");
+        configuration.set("vouchers.basic.duration-seconds", 120);
+        configuration.set("vouchers.basic.lore", List.of());
+        when(ezPlugin.getConfig()).thenReturn(configuration);
+
+        VoucherStorage storage = mock(VoucherStorage.class);
+        when(storage.loadConsumedVoucherIds()).thenReturn(Collections.emptySet());
+
+        VoucherManager manager = new VoucherManager(ezPlugin, storage);
+        FlyVoucher voucher = manager.getVoucher("basic");
+        UUID uuid = UUID.randomUUID();
+
+        assertNull(manager.getActiveVoucher(uuid));
+        manager.recordVoucherRedemption(uuid, voucher);
+        assertEquals(voucher, manager.getActiveVoucher(uuid));
+    }
+
+    @Test
+    void clearActiveVoucherRemovesStoredVoucher() {
+        EzFlyTimePlugin ezPlugin = mock(EzFlyTimePlugin.class, Answers.RETURNS_DEEP_STUBS);
+        YamlConfiguration configuration = new YamlConfiguration();
+        configuration.set("vouchers.basic.material", "PAPER");
+        configuration.set("vouchers.basic.name", "&aBasic Voucher");
+        configuration.set("vouchers.basic.duration-seconds", 120);
+        configuration.set("vouchers.basic.lore", List.of());
+        when(ezPlugin.getConfig()).thenReturn(configuration);
+
+        VoucherStorage storage = mock(VoucherStorage.class);
+        when(storage.loadConsumedVoucherIds()).thenReturn(Collections.emptySet());
+
+        VoucherManager manager = new VoucherManager(ezPlugin, storage);
+        FlyVoucher voucher = manager.getVoucher("basic");
+        UUID uuid = UUID.randomUUID();
+
+        manager.recordVoucherRedemption(uuid, voucher);
+        assertNotNull(manager.getActiveVoucher(uuid));
+        manager.clearActiveVoucher(uuid);
+        assertNull(manager.getActiveVoucher(uuid));
+    }
+
+    @Test
+    void reloadClearsActiveVouchers() {
+        EzFlyTimePlugin ezPlugin = mock(EzFlyTimePlugin.class, Answers.RETURNS_DEEP_STUBS);
+        YamlConfiguration configuration = new YamlConfiguration();
+        configuration.set("vouchers.basic.material", "PAPER");
+        configuration.set("vouchers.basic.name", "&aBasic Voucher");
+        configuration.set("vouchers.basic.duration-seconds", 120);
+        configuration.set("vouchers.basic.lore", List.of());
+        when(ezPlugin.getConfig()).thenReturn(configuration);
+
+        VoucherStorage storage = mock(VoucherStorage.class);
+        when(storage.loadConsumedVoucherIds()).thenReturn(Collections.emptySet());
+
+        VoucherManager manager = new VoucherManager(ezPlugin, storage);
+        FlyVoucher voucher = manager.getVoucher("basic");
+        UUID uuid = UUID.randomUUID();
+
+        manager.recordVoucherRedemption(uuid, voucher);
+        assertNotNull(manager.getActiveVoucher(uuid));
+        manager.reload();
+        assertNull(manager.getActiveVoucher(uuid));
+    }
 }
