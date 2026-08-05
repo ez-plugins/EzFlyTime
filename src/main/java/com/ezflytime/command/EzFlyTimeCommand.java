@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import static com.ezflytime.util.TimeFormatter.formatCompact;
+
 public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
 
     private final EzFlyTimePlugin plugin;
@@ -35,6 +37,8 @@ public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
                 return handleTop(sender);
             case "maxsingle":
                 return handleMaxSingleBypass(sender, args);
+            case "info":
+                return handleInfo(sender, args);
             case "help":
             default:
                 sendHelp(sender);
@@ -160,10 +164,81 @@ public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
+    private boolean handleInfo(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("ezflytime.info")) {
+            sender.sendMessage(plugin.getMessage("messages.no-permission"));
+            return true;
+        }
+
+        if (args.length < 2) {
+            sender.sendMessage(plugin.getMessage("messages.info-usage"));
+            return true;
+        }
+
+        org.bukkit.entity.Player target = plugin.getServer().getPlayer(args[1]);
+        if (target == null) {
+            sender.sendMessage(plugin.getMessage("messages.player-not-found")
+                    .replace("{player}", args[1]));
+            return true;
+        }
+
+        com.ezflytime.flight.FlyTimeManager flyTimeManager = plugin.getServiceRegistry().getFlyTimeManager();
+        if (flyTimeManager == null) {
+            sender.sendMessage(plugin.getMessage("messages.flytime-error"));
+            return true;
+        }
+
+        sender.sendMessage(plugin.getMessage("messages.info-header")
+                .replace("{player}", target.getName()));
+
+        int remaining = flyTimeManager.getRemainingSeconds(target);
+        if (remaining > 0) {
+            sender.sendMessage(plugin.getMessage("messages.info-remaining-time")
+                    .replace("{time}", formatCompact(remaining)));
+        } else {
+            sender.sendMessage(plugin.getMessage("messages.info-no-remaining-time"));
+        }
+
+        com.ezflytime.voucher.FlyVoucher activeVoucher = plugin.getServiceRegistry().getVoucherManager().getActiveVoucher(target.getUniqueId());
+        if (activeVoucher != null) {
+            sender.sendMessage(plugin.getMessage("messages.info-active-voucher")
+                    .replace("{voucher}", activeVoucher.getDisplayName()));
+            sender.sendMessage(plugin.getMessage("messages.info-voucher-duration")
+                    .replace("{duration}", formatCompact(activeVoucher.getDurationSeconds())));
+        } else {
+            sender.sendMessage(plugin.getMessage("messages.info-no-active-voucher"));
+        }
+
+        java.util.Map<java.util.UUID, Boolean> activeStates = flyTimeManager.snapshotActiveStates();
+        boolean isActive = activeStates.getOrDefault(target.getUniqueId(), false);
+        sender.sendMessage(plugin.getMessage("messages.info-flying-status")
+                .replace("{status}", isActive ? "Yes" : "No"));
+
+        com.ezflytime.config.ConfigManager cm = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
+        boolean unlimited = cm != null && cm.hasBypassUnlimitedFlight(target);
+        if (!unlimited) {
+            org.bukkit.GameMode mode = target.getGameMode();
+            if (mode == org.bukkit.GameMode.CREATIVE && cm != null && cm.isCreativeModeTreatedAsUnlimited()) {
+                unlimited = true;
+            } else if (mode == org.bukkit.GameMode.SPECTATOR && cm != null && cm.isSpectatorModeTreatedAsUnlimited()) {
+                unlimited = true;
+            }
+        }
+        sender.sendMessage(plugin.getMessage("messages.info-unlimited-flight")
+                .replace("{status}", unlimited ? "Yes" : "No"));
+
+        boolean maxSingleBypass = flyTimeManager.hasMaxSingleFlightBypass(target);
+        sender.sendMessage(plugin.getMessage("messages.info-maxsingle-bypass")
+                .replace("{status}", maxSingleBypass ? "Yes" : "No"));
+
+        return true;
+    }
+
     private void sendHelp(CommandSender sender) {
         sender.sendMessage(plugin.getMessage("messages.help-heading"));
         sender.sendMessage(plugin.getMessage("messages.help-reload"));
         sender.sendMessage(plugin.getMessage("messages.help-maxsingle"));
+        sender.sendMessage(plugin.getMessage("messages.help-info"));
         sender.sendMessage(plugin.getMessage("messages.help-help"));
     }
 
@@ -182,6 +257,9 @@ public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
             if ("maxsingle".startsWith(partial) && sender.hasPermission("ezflytime.maxsingle.manage")) {
                 completions.add("maxsingle");
             }
+            if ("info".startsWith(partial) && sender.hasPermission("ezflytime.info")) {
+                completions.add("info");
+            }
             if ("help".startsWith(partial)) {
                 completions.add("help");
             }
@@ -189,17 +267,31 @@ public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
             return completions;
         }
 
-        if (args.length == 2 && "maxsingle".equalsIgnoreCase(args[0]) && sender.hasPermission("ezflytime.maxsingle.manage")) {
-            List<String> players = new ArrayList<>();
-            String partial = args[1].toLowerCase(Locale.ROOT);
-            for (org.bukkit.entity.Player player : plugin.getServer().getOnlinePlayers()) {
-                String name = player.getName();
-                if (name.toLowerCase(Locale.ROOT).startsWith(partial)) {
-                    players.add(name);
+        if (args.length == 2) {
+            if ("maxsingle".equalsIgnoreCase(args[0]) && sender.hasPermission("ezflytime.maxsingle.manage")) {
+                List<String> players = new ArrayList<>();
+                String partial = args[1].toLowerCase(Locale.ROOT);
+                for (org.bukkit.entity.Player player : plugin.getServer().getOnlinePlayers()) {
+                    String name = player.getName();
+                    if (name.toLowerCase(Locale.ROOT).startsWith(partial)) {
+                        players.add(name);
+                    }
                 }
+                Collections.sort(players);
+                return players;
             }
-            Collections.sort(players);
-            return players;
+            if ("info".equalsIgnoreCase(args[0]) && sender.hasPermission("ezflytime.info")) {
+                List<String> players = new ArrayList<>();
+                String partial = args[1].toLowerCase(Locale.ROOT);
+                for (org.bukkit.entity.Player player : plugin.getServer().getOnlinePlayers()) {
+                    String name = player.getName();
+                    if (name.toLowerCase(Locale.ROOT).startsWith(partial)) {
+                        players.add(name);
+                    }
+                }
+                Collections.sort(players);
+                return players;
+            }
         }
 
         if (args.length == 3 && "maxsingle".equalsIgnoreCase(args[0]) && sender.hasPermission("ezflytime.maxsingle.manage")) {

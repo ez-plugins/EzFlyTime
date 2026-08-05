@@ -9,6 +9,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **`/ezflytime info <player>` admin command** - shows a target player's remaining
+  flight time, active voucher status (name and duration), flying state,
+  unlimited-flight status, and per-session max-flight bypass state.
+  Permission node: `ezflytime.info` (default: `op`).
 - **`hide-voucher-nbt` config option** (default: `true`) - when enabled, voucher
   items no longer expose internal attribute modifiers or NBT metadata in the
   item tooltip.  Set `hide-voucher-nbt: false` in `config.yml` to restore the
