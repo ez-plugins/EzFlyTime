@@ -2,6 +2,7 @@ package com.ezflytime.voucher;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
@@ -12,8 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.UUID;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 
 public class FlyVoucher {
 
@@ -25,6 +24,7 @@ public class FlyVoucher {
     private final List<String> lore;
     private final int durationSeconds;
     private final double price;
+    private final boolean hideNbt;
     private final List<String> onBuyCommands;
     private final List<String> onUseCommands;
 
@@ -38,10 +38,14 @@ public class FlyVoucher {
     private static final java.util.Map<Integer, String> createdUniqueIds = java.util.Collections.synchronizedMap(new java.util.HashMap<>());
 
     public FlyVoucher(Plugin plugin, String id, Material material, String displayName, List<String> lore, int durationSeconds, double price) {
-        this(plugin, id, material, displayName, lore, durationSeconds, price, java.util.Collections.emptyList(), java.util.Collections.emptyList());
+        this(plugin, id, material, displayName, lore, durationSeconds, price, java.util.Collections.emptyList(), java.util.Collections.emptyList(), false);
     }
 
     public FlyVoucher(Plugin plugin, String id, Material material, String displayName, List<String> lore, int durationSeconds, double price, List<String> onBuyCommands, List<String> onUseCommands) {
+        this(plugin, id, material, displayName, lore, durationSeconds, price, onBuyCommands, onUseCommands, false);
+    }
+
+    public FlyVoucher(Plugin plugin, String id, Material material, String displayName, List<String> lore, int durationSeconds, double price, List<String> onBuyCommands, List<String> onUseCommands, boolean hideNbt) {
         this.plugin = plugin;
         this.metadataHandler = VoucherMetadataHandlers.resolve(plugin);
         this.id = id;
@@ -55,6 +59,7 @@ public class FlyVoucher {
             line.replace("{minutes}", minutes).replace("{seconds}", seconds))));
         this.durationSeconds = durationSeconds;
         this.price = price;
+        this.hideNbt = hideNbt;
         this.onBuyCommands = java.util.Collections.unmodifiableList(new ArrayList<>(onBuyCommands));
         this.onUseCommands = java.util.Collections.unmodifiableList(new ArrayList<>(onUseCommands));
     }
@@ -397,12 +402,10 @@ public class FlyVoucher {
 
     private void applyItemFlags(ItemMeta meta) {
         try {
-            Class<?> itemFlagClass = Class.forName("org.bukkit.inventory.ItemFlag");
-            Object hideEnchants = Enum.valueOf((Class<Enum>) itemFlagClass, "HIDE_ENCHANTS");
-            Method addItemFlags = meta.getClass().getMethod("addItemFlags", Array.newInstance(itemFlagClass, 0).getClass());
-            Object flagArray = Array.newInstance(itemFlagClass, 1);
-            Array.set(flagArray, 0, hideEnchants);
-            addItemFlags.invoke(meta, flagArray);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            if (hideNbt) {
+                meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            }
         } catch (Exception ignored) {
         }
     }

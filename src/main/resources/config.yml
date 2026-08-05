@@ -100,6 +100,10 @@ auto-flight-rewards:
 # Set to false only if you're experiencing false positives.
 detect-voucher-dupes: true
 
+# Hide NBT data from voucher items
+# When enabled, hides attribute modifiers and other NBT data from the item tooltip.
+hide-voucher-nbt: true
+
 # Flight Settings
 # Core flight mechanics configuration.
 # - activation-mode: How players activate flight
