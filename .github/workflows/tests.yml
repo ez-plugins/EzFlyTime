@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'src/test/**'
+      - 'pom.xml'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'src/test/**'
+      - 'pom.xml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Unit & Feature Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Run unit and feature tests
+        run: mvn -B -ntp test -Dtest="*Test,!*SmokeTest,!*IntegrationTest" -DfailIfNoTests=false
