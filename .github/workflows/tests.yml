@@ -3,14 +3,8 @@ name: Tests
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'src/test/**'
-      - 'pom.xml'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'src/test/**'
-      - 'pom.xml'
   workflow_dispatch:
 
 jobs:
