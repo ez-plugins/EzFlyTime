@@ -165,6 +165,9 @@ public class StartupBootstrap {
             bossBarStatus += " (unsupported on this server)";
         }
         plugin.getLogger().info("[EzFlyTime] BossBar display: " + bossBarStatus);
+        boolean actionBarEnabled = cm != null ? cm.isActionBarEnabled() : false;
+        String actionBarStatus = actionBarEnabled ? "enabled" : "disabled";
+        plugin.getLogger().info("[EzFlyTime] ActionBar display: " + actionBarStatus);
         plugin.getLogger().info("[EzFlyTime] Update checks: " + (plugin.getConfig().getBoolean("updates.enabled", true) ? "enabled" : "disabled"));
     }
 

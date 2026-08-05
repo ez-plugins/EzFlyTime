@@ -33,6 +33,7 @@ public class FlyTimeManager implements Listener {
     // Used to enforce per-session maximum continuous flight.
     private final Map<UUID, Integer> sessionStartRemaining = new HashMap<>();
     private final FlightBossBarHandler bossBarHandler;
+    private final FlightActionBarHandler actionBarHandler;
     private final ParticlesManager particlesManager;
     private BukkitRunnable countdownTask;
     private BukkitRunnable autoSaveTask;
@@ -48,6 +49,7 @@ public class FlyTimeManager implements Listener {
         int autoSaveIntervalSeconds = Math.max(0, plugin.getConfig().getInt("auto-save.interval-seconds", 300));
         this.autoSaveIntervalTicks = autoSaveIntervalSeconds * 20L;
         this.bossBarHandler = new FlightBossBarHandler(plugin);
+        this.actionBarHandler = new FlightActionBarHandler(plugin);
         this.particlesManager = plugin.getServiceRegistry().getParticlesManager();
         this.activationMode = parseActivationMode(plugin.getConfig().getString("flight.activation-mode", "NORMAL"));
         this.preserveFlightOnDeath = plugin.getConfig().getBoolean("flight.preserve-on-death", true);
@@ -69,6 +71,7 @@ public class FlyTimeManager implements Listener {
         debug("Updated flight time for %s (%s): %d seconds total.",
                 player.getName(), uuid, newTime);
         bossBarHandler.setInitialFlight(uuid, newTime);
+        actionBarHandler.setInitialFlight(uuid, newTime);
         enableFlight(player);
         int minutes = seconds / 60;
         if (notify) {
@@ -92,6 +95,7 @@ public class FlyTimeManager implements Listener {
         debug("Updated flight time for %s (%s): %d seconds total.",
                 player.getName(), uuid, seconds);
         bossBarHandler.setInitialFlight(uuid, seconds);
+        actionBarHandler.setInitialFlight(uuid, seconds);
 
         // If new time is 0, revoke flight regardless of whether player is actively flying
         if (seconds <= 0) {
@@ -139,17 +143,21 @@ public class FlyTimeManager implements Listener {
             UUID uuid = entry.getKey();
             int seconds = entry.getValue();
             bossBarHandler.setInitialFlight(uuid, seconds);
+            actionBarHandler.setInitialFlight(uuid, seconds);
             Player player = Bukkit.getPlayer(uuid);
             if (player != null) {
                 if (activelyFlying.getOrDefault(uuid, false) && isFlightEngaged(player)) {
                     com.ezflytime.config.ConfigManager cm = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
                     boolean bypass = cm != null && cm.hasBypassUnlimitedFlight(player);
                     bossBarHandler.markActive(player, seconds, bypass, hasUnlimitedFlight(player));
+                    actionBarHandler.markActive(player, seconds, bypass, hasUnlimitedFlight(player));
                 } else {
                     bossBarHandler.markInactive(player);
+                    actionBarHandler.markInactive(player);
                 }
             } else {
                 bossBarHandler.reset(uuid);
+                actionBarHandler.reset(uuid);
             }
         }
     }
@@ -246,12 +254,16 @@ public class FlyTimeManager implements Listener {
             sessionStartRemaining.put(uuid, currentRemaining);
             int sessionCap = Math.min(currentRemaining, maxSingle);
             bossBarHandler.setInitialFlight(uuid, sessionCap);
+            actionBarHandler.setInitialFlight(uuid, sessionCap);
             bossBarHandler.markActive(player, sessionCap, bypassUnlimited, hasUnlimitedFlight(player));
+            actionBarHandler.markActive(player, sessionCap, bypassUnlimited, hasUnlimitedFlight(player));
         } else {
             // No per-session limit or player bypasses it
             sessionStartRemaining.remove(uuid);
             bossBarHandler.setInitialFlight(uuid, currentRemaining);
+            actionBarHandler.setInitialFlight(uuid, currentRemaining);
             bossBarHandler.markActive(player, currentRemaining, bypassUnlimited, hasUnlimitedFlight(player));
+            actionBarHandler.markActive(player, currentRemaining, bypassUnlimited, hasUnlimitedFlight(player));
         }
 
         // Play start flying sound if just started flying
@@ -263,6 +275,7 @@ public class FlyTimeManager implements Listener {
     private void markInactive(Player player) {
         activelyFlying.put(player.getUniqueId(), false);
         bossBarHandler.markInactive(player);
+        actionBarHandler.markInactive(player);
         // Clear particle trails when stopping flight
         if (plugin.getServiceRegistry().getParticlesManager() != null) {
             plugin.getServiceRegistry().getParticlesManager().clearPlayerTrails(player.getUniqueId());
@@ -286,6 +299,7 @@ public class FlyTimeManager implements Listener {
                         // Player is offline - clean up their state but don't log spam
                         activelyFlying.remove(uuid);
                         bossBarHandler.reset(uuid);
+                        actionBarHandler.reset(uuid);
                         if (seconds <= 0) {
                             remainingSeconds.remove(uuid);
                         }
@@ -298,6 +312,7 @@ public class FlyTimeManager implements Listener {
                         remainingSeconds.remove(uuid);
                         activelyFlying.remove(uuid);
                         bossBarHandler.reset(uuid);
+                        actionBarHandler.reset(uuid);
                         disableFlight(player);
                         player.sendMessage(plugin.getMessage("messages.flight-ended"));
                         continue;
@@ -306,6 +321,7 @@ public class FlyTimeManager implements Listener {
                     boolean isActive = activelyFlying.getOrDefault(uuid, isFlightEngaged(player));
                     if (!isActive || !isFlightEngaged(player)) {
                         bossBarHandler.update(player, remainingSeconds.getOrDefault(uuid, seconds));
+                        actionBarHandler.update(player, remainingSeconds.getOrDefault(uuid, seconds));
                         continue;
                     }
 
@@ -313,13 +329,14 @@ public class FlyTimeManager implements Listener {
                     // do not decrement their stored remaining seconds — keep the timer paused.
                     if (hasUnlimitedFlight(player)) {
                         bossBarHandler.update(player, remainingSeconds.getOrDefault(uuid, seconds));
+                        actionBarHandler.update(player, remainingSeconds.getOrDefault(uuid, seconds));
                         continue;
                     }
 
                     int updatedSeconds = seconds - 1;
                     remainingSeconds.put(uuid, updatedSeconds);
-                    // Update bossbar first
                     bossBarHandler.update(player, remainingSeconds.getOrDefault(uuid, 0));
+                    actionBarHandler.update(player, remainingSeconds.getOrDefault(uuid, 0));
 
                     // Enforce per-session maximum continuous flight if configured.
                     int sessionStart = sessionStartRemaining.getOrDefault(uuid, -1);
@@ -377,6 +394,10 @@ public class FlyTimeManager implements Listener {
         stop();
         try {
             bossBarHandler.clearAll();
+        } catch (Exception ignored) {
+        }
+        try {
+            actionBarHandler.clearAll();
         } catch (Exception ignored) {
         }
         HandlerList.unregisterAll(this);

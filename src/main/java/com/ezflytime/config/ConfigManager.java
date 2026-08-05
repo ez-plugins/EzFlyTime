@@ -331,6 +331,11 @@ public class ConfigManager {
         return bossBarSection == null || bossBarSection.getBoolean("enabled", true);
     }
 
+    public boolean isActionBarEnabled() {
+        org.bukkit.configuration.ConfigurationSection actionBarSection = plugin.getConfig().getConfigurationSection("actionbar");
+        return actionBarSection != null && actionBarSection.getBoolean("enabled", false);
+    }
+
     public String resolveActivationMode() {
         String configured = plugin.getConfig().getString("flight.activation-mode", "normal");
         if (configured == null || configured.trim().isEmpty()) {
