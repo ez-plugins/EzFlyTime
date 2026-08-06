@@ -1,7 +1,9 @@
 package com.ezflytime.placeholder;
 
 import com.ezflytime.EzFlyTimePlugin;
+import com.ezflytime.config.ConfigManager;
 import com.ezflytime.flight.FlyTimeManager;
+import com.ezflytime.util.TimeFormatter;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -80,26 +82,11 @@ public class FlyTimePlaceholderExpansion extends PlaceholderExpansion {
                 return String.valueOf(remainingSeconds / 60);
             case "formatted":
             case "time_remaining":
-                return formatSeconds(remainingSeconds);
+                ConfigManager cm = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
+                String fmt = cm != null ? cm.getTimeFormat() : "compact";
+                return TimeFormatter.format(remainingSeconds, fmt);
             default:
                 return null;
         }
-    }
-
-    private String formatSeconds(int totalSeconds) {
-        if (totalSeconds <= 0) {
-            return "00:00";
-        }
-
-        Duration duration = Duration.ofSeconds(totalSeconds);
-        long hours = duration.toHours();
-        int minutes = duration.toMinutesPart();
-        int seconds = duration.toSecondsPart();
-
-        if (hours > 0) {
-            return String.format(Locale.ROOT, "%02d:%02d:%02d", hours, minutes, seconds);
-        }
-
-        return String.format(Locale.ROOT, "%02d:%02d", minutes, seconds);
     }
 }

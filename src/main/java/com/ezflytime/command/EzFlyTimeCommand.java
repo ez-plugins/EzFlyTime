@@ -1,6 +1,9 @@
 package com.ezflytime.command;
 
 import com.ezflytime.EzFlyTimePlugin;
+import com.ezflytime.config.ConfigManager;
+import com.ezflytime.flight.FlyTimeManager;
+import com.ezflytime.util.TimeFormatter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
-import static com.ezflytime.util.TimeFormatter.formatCompact;
 
 public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
 
@@ -74,16 +75,9 @@ public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
     }
 
     private String formatTime(int seconds) {
-        int hours = seconds / 3600;
-        int minutes = (seconds % 3600) / 60;
-        int secs = seconds % 60;
-        if (hours > 0) {
-            return String.format("%dh %dm %ds", hours, minutes, secs);
-        } else if (minutes > 0) {
-            return String.format("%dm %ds", minutes, secs);
-        } else {
-            return String.format("%ds", secs);
-        }
+        ConfigManager cm = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
+        String fmt = cm != null ? cm.getTimeFormat() : "compact";
+        return TimeFormatter.format(seconds, fmt);
     }
 
     private boolean handleReload(CommandSender sender) {
@@ -194,7 +188,7 @@ public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
         int remaining = flyTimeManager.getRemainingSeconds(target);
         if (remaining > 0) {
             sender.sendMessage(plugin.getMessage("messages.info-remaining-time")
-                    .replace("{time}", formatCompact(remaining)));
+                    .replace("{time}", formatTime(remaining)));
         } else {
             sender.sendMessage(plugin.getMessage("messages.info-no-remaining-time"));
         }
@@ -204,7 +198,7 @@ public class EzFlyTimeCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(plugin.getMessage("messages.info-active-voucher")
                     .replace("{voucher}", activeVoucher.getDisplayName()));
             sender.sendMessage(plugin.getMessage("messages.info-voucher-duration")
-                    .replace("{duration}", formatCompact(activeVoucher.getDurationSeconds())));
+                    .replace("{duration}", formatTime(activeVoucher.getDurationSeconds())));
         } else {
             sender.sendMessage(plugin.getMessage("messages.info-no-active-voucher"));
         }

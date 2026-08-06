@@ -1,6 +1,8 @@
 package com.ezflytime.flight;
 
 import com.ezflytime.EzFlyTimePlugin;
+import com.ezflytime.config.ConfigManager;
+import com.ezflytime.util.TimeFormatter;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
@@ -11,8 +13,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
-import static com.ezflytime.util.TimeFormatter.formatCompact;
 
 class FlightActionBarHandler {
 
@@ -25,6 +25,7 @@ class FlightActionBarHandler {
     private final String title;
     private final boolean showSpeed;
     private final String speedFormat;
+    private final String timeFormat;
 
     FlightActionBarHandler(EzFlyTimePlugin plugin) {
         this.plugin = plugin;
@@ -39,6 +40,7 @@ class FlightActionBarHandler {
         this.showSpeed = actionBarSection != null && actionBarSection.getConfigurationSection("speed-counter") != null
             && actionBarSection.getConfigurationSection("speed-counter").getBoolean("enabled", false);
         this.speedFormat = formatColors(actionBarSection != null ? actionBarSection.getString("speed-counter.speed-format", "&bSpeed: {speed} b/s") : "&bSpeed: {speed} b/s");
+        this.timeFormat = cm != null ? cm.getTimeFormat() : "compact";
     }
 
     void setInitialFlight(UUID uuid, int seconds) {
@@ -115,7 +117,7 @@ class FlightActionBarHandler {
 
     private String formatTitle(Player player, int remainingSeconds, int percent) {
         String out = title
-                .replace("{time}", formatCompact(remainingSeconds))
+                .replace("{time}", TimeFormatter.format(remainingSeconds, timeFormat))
                 .replace("{seconds}", String.valueOf(remainingSeconds))
                 .replace("{fuel}", String.valueOf(percent));
         boolean needsSpeed = showSpeed || out.contains("{speed}");
@@ -146,7 +148,7 @@ class FlightActionBarHandler {
         }
 
         String speedStr = String.format(Locale.ROOT, "%.1f", horizontalSpeed);
-        String speedText = speedFormat.replace("{speed}", speedStr).replace("{time}", formatCompact(remainingSeconds));
+        String speedText = speedFormat.replace("{speed}", speedStr).replace("{time}", TimeFormatter.format(remainingSeconds, timeFormat));
 
         if (out.contains("{speed}")) {
             return out.replace("{speed}", speedStr);

@@ -72,6 +72,7 @@ public class FlySubcommand implements TeamsSubcommand {
     private void toggleFlight(Player player, FlyTimeManager ftm) {
         ConfigManager cm = plugin.getServiceRegistry() != null
                 ? plugin.getServiceRegistry().getConfigManager() : null;
+        String fmt = cm != null ? cm.getTimeFormat() : "compact";
         if (player.getAllowFlight()) {
             player.setFlying(false);
             player.setAllowFlight(false);
@@ -81,7 +82,7 @@ public class FlySubcommand implements TeamsSubcommand {
             } else {
                 int seconds = ftm.getRemainingSeconds(player);
                 player.sendMessage(plugin.getMessage("messages.flight-disabled")
-                        .replace("{time}", com.ezflytime.util.TimeFormatter.formatCompact(seconds)));
+                        .replace("{time}", com.ezflytime.util.TimeFormatter.format(seconds, fmt)));
             }
             return;
         }
@@ -98,7 +99,7 @@ public class FlySubcommand implements TeamsSubcommand {
             player.setFlying(true);
             ftm.resumeCountdown(player);
             player.sendMessage(plugin.getMessage("messages.flight-enabled")
-                    .replace("{time}", com.ezflytime.util.TimeFormatter.formatCompact(seconds)));
+                    .replace("{time}", com.ezflytime.util.TimeFormatter.format(seconds, fmt)));
             return;
         }
 

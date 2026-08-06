@@ -112,8 +112,10 @@ public class FlyTimeManager implements Listener {
         }
 
         if (notify && seconds > 0) {
+            com.ezflytime.config.ConfigManager cm = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
+            String fmt = cm != null ? cm.getTimeFormat() : "compact";
             player.sendMessage(plugin.getMessage("messages.flight-time-set")
-                    .replace("{time}", String.valueOf(seconds)));
+                    .replace("{time}", com.ezflytime.util.TimeFormatter.format(seconds, fmt)));
         }
     }
 

@@ -49,12 +49,21 @@ updates:
 ```yaml
 display:
   flytime-mode: time  # time | fuel
+  time-format: HH:MM:SS  # compact | clock | pattern
 ```
 
-- `time` (default) - shows remaining flight as a formatted duration (e.g. `1h 2m 3s`).
-- `fuel` - shows remaining flight as a percentage (e.g. `Flight fuel: 75%`).
+- `flytime-mode` - `time` (default) shows remaining flight as a formatted duration (e.g. `1h 2m 3s`). `fuel` shows remaining flight as a percentage (e.g. `Flight fuel: 75%`).
+- `time-format` - controls how `{time}` and `{duration}` are rendered. Accepts:
+  - `compact` (default legacy) - `1h 2m 3s`
+  - `clock` - `HH:MM:SS` when hours are present, otherwise `MM:SS`
+  - Any pattern string with tokens:
+    - `DD` / `D` - days (padded / unpadded)
+    - `HH` / `H` - hours (padded / unpadded)
+    - `MM` / `M` - minutes (padded / unpadded)
+    - `SS` / `S` - seconds (padded / unpadded)
+  - Examples: `HH:MM:SS`, `MM:SS`, `Dd HH:MM:SS`
 
-This setting affects boss bars, messages, and PlaceholderAPI placeholders.
+This setting affects boss bars, action bars, `/fly` and `/flytime` messages, admin commands, and PlaceholderAPI placeholders.
 
 ---
 

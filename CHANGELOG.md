@@ -9,6 +9,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- **`display.time-format` config option** - controls how `{time}` and `{duration}`
+  are formatted in boss bars, action bars, commands, messages, and placeholders.
+  Accepts a pattern string with tokens: `DD`/`D` (days), `HH`/`H` (hours),
+  `MM`/`M` (minutes), `SS`/`S` (seconds). Examples: `HH:MM:SS`, `MM:SS`,
+  `Dd HH:MM:SS`. The special values `compact` and `clock` are still supported
+  for backward compatibility.
 - **`/ezflytime info <player>` admin command** - shows a target player's remaining
   flight time, active voucher status (name and duration), flying state,
   unlimited-flight status, and per-session max-flight bypass state.

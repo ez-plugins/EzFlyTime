@@ -376,6 +376,10 @@ public class ConfigManager {
         return plugin.getConfig().getInt("flight.max-single-flight-seconds", 0);
     }
 
+    public String getTimeFormat() {
+        return plugin.getConfig().getString("display.time-format", "compact");
+    }
+
     public boolean isDebugEnabled() {
         return debugEnabled;
     }
