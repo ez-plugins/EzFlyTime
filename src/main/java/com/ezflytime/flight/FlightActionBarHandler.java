@@ -1,7 +1,8 @@
 package com.ezflytime.flight;
 
 import com.ezflytime.EzFlyTimePlugin;
-import com.ezflytime.util.ActionBarSupport;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -37,7 +38,7 @@ class FlightActionBarHandler {
         this.title = formatColors(actionBarSection != null ? actionBarSection.getString("title", defaultTitle) : defaultTitle);
         this.showSpeed = actionBarSection != null && actionBarSection.getConfigurationSection("speed-counter") != null
             && actionBarSection.getConfigurationSection("speed-counter").getBoolean("enabled", false);
-        this.speedFormat = actionBarSection != null ? actionBarSection.getString("speed-counter.speed-format", "&bSpeed: {speed} b/s") : "&bSpeed: {speed} b/s";
+        this.speedFormat = formatColors(actionBarSection != null ? actionBarSection.getString("speed-counter.speed-format", "&bSpeed: {speed} b/s") : "&bSpeed: {speed} b/s");
     }
 
     void setInitialFlight(UUID uuid, int seconds) {
@@ -89,12 +90,12 @@ class FlightActionBarHandler {
 
         int initial = initialFlightSeconds.getOrDefault(uuid, remainingSeconds);
         if (initial <= 0) {
-            ActionBarSupport.sendActionBar(player, formatTitle(player, remainingSeconds, 100));
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(formatTitle(player, remainingSeconds, 100)));
             return;
         }
         double progress = Math.max(0.0, Math.min(1.0, remainingSeconds / (double) initial));
         int percent = (int) Math.round(progress * 100);
-        ActionBarSupport.sendActionBar(player, formatTitle(player, remainingSeconds, percent));
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(formatTitle(player, remainingSeconds, percent)));
     }
 
     void clearAll() {
