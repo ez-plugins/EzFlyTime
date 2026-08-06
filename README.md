@@ -28,6 +28,7 @@ Documentation at a glance:
 ## Key Features
 
 - Timed flight with a real-time boss bar countdown and speed meter.
+- Configurable time format for `{time}` and `{duration}` (e.g. `HH:MM:SS`, `MM:SS`, `Dd HH:MM:SS`).
 - Physical voucher items with PDC-backed identity and duplicate detection.
 - In-game GUI shop for buying vouchers with Vault economy integration.
 - Configurable particle trails per player (with an unlockable shop).

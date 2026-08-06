@@ -1,6 +1,7 @@
 package com.ezflytime.flight.autoreward;
 
 import com.ezflytime.EzFlyTimePlugin;
+import com.ezflytime.config.ConfigManager;
 import com.ezflytime.flight.FlyTimeManager;
 import com.ezflytime.util.TimeFormatter;
 import org.bukkit.entity.Player;
@@ -110,10 +111,12 @@ public class AutoFlightTimeDistributor {
 
             flyTimeManager.addTime(player, totalSeconds, false);
             if (settings.shouldNotifyPlayers()) {
+                ConfigManager cm = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
+                String fmt = cm != null ? cm.getTimeFormat() : "compact";
                 player.sendMessage(plugin.getMessage("messages.auto-flight-reward")
                         .replace("{seconds}", String.valueOf(totalSeconds))
                         .replace("{minutes}", String.valueOf(totalSeconds / 60))
-                        .replace("{time}", TimeFormatter.formatCompact(totalSeconds)));
+                        .replace("{time}", TimeFormatter.format(totalSeconds, fmt)));
             }
         }
     }

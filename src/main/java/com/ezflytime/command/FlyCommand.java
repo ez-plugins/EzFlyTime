@@ -3,6 +3,7 @@ package com.ezflytime.command;
 import com.ezflytime.EzFlyTimePlugin;
 import com.ezflytime.config.ConfigManager;
 import com.ezflytime.flight.FlyTimeManager;
+import com.ezflytime.util.TimeFormatter;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,13 +16,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import static com.ezflytime.util.TimeFormatter.formatCompact;
-
 public class FlyCommand implements CommandExecutor, TabCompleter {
 
     private final EzFlyTimePlugin plugin;
     public FlyCommand(EzFlyTimePlugin plugin) {
         this.plugin = plugin;
+    }
+
+    private String formatTime(int seconds) {
+        ConfigManager cm = plugin.getServiceRegistry() != null ? plugin.getServiceRegistry().getConfigManager() : null;
+        String fmt = cm != null ? cm.getTimeFormat() : "compact";
+        return TimeFormatter.format(seconds, fmt);
     }
 
     @Override
@@ -156,7 +161,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             } else {
                 int seconds = flyTimeManager.getRemainingSeconds(player);
                 player.sendMessage(plugin.getMessage("messages.flight-disabled")
-                        .replace("{time}", formatCompact(seconds)));
+                        .replace("{time}", formatTime(seconds)));
             }
             return;
         }
@@ -179,7 +184,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
             enableFlight(player);
             flyTimeManager.resumeCountdown(player);
             player.sendMessage(plugin.getMessage("messages.flight-enabled")
-                    .replace("{time}", formatCompact(seconds)));
+                    .replace("{time}", formatTime(seconds)));
             return;
         }
 
@@ -239,18 +244,18 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                 flyTimeManager.addTime(targetPlayer, seconds, false);
                 sender.sendMessage(plugin.getMessage("messages.flytime-given")
                         .replace("{player}", targetPlayer.getName())
-                        .replace("{time}", formatCompact(seconds)));
+                        .replace("{time}", formatTime(seconds)));
                 targetPlayer.sendMessage(plugin.getMessage("messages.flytime-received")
-                        .replace("{time}", formatCompact(seconds)));
+                        .replace("{time}", formatTime(seconds)));
                 break;
 
             case "set":
                 flyTimeManager.setTime(targetPlayer, seconds, false);
                 sender.sendMessage(plugin.getMessage("messages.flytime-set")
                         .replace("{player}", targetPlayer.getName())
-                        .replace("{time}", formatCompact(seconds)));
+                        .replace("{time}", formatTime(seconds)));
                 targetPlayer.sendMessage(plugin.getMessage("messages.flytime-set-received")
-                        .replace("{time}", formatCompact(seconds)));
+                        .replace("{time}", formatTime(seconds)));
                 break;
 
             case "remove":
@@ -259,9 +264,9 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                 flyTimeManager.setTime(targetPlayer, Math.max(0, currentTime - seconds), false);
                 sender.sendMessage(plugin.getMessage("messages.flytime-removed")
                         .replace("{player}", targetPlayer.getName())
-                        .replace("{time}", formatCompact(actualRemoved)));
+                        .replace("{time}", formatTime(actualRemoved)));
                 targetPlayer.sendMessage(plugin.getMessage("messages.flytime-removed-received")
-                        .replace("{time}", formatCompact(actualRemoved)));
+                        .replace("{time}", formatTime(actualRemoved)));
                 break;
         }
 
@@ -374,7 +379,7 @@ public class FlyCommand implements CommandExecutor, TabCompleter {
                     .replace("{fuel}", String.valueOf(fuelPercent)));
         } else {
             // Time mode: show as formatted time
-            String formattedTime = formatCompact(remainingSeconds);
+            String formattedTime = formatTime(remainingSeconds);
             player.sendMessage(plugin.getMessage("messages.flight-time-remaining")
                     .replace("{time}", formattedTime));
         }

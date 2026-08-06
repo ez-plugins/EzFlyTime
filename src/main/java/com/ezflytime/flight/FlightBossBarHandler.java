@@ -1,6 +1,8 @@
 package com.ezflytime.flight;
 
 import com.ezflytime.EzFlyTimePlugin;
+import com.ezflytime.config.ConfigManager;
+import com.ezflytime.util.TimeFormatter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.Location;
@@ -11,8 +13,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-
-import static com.ezflytime.util.TimeFormatter.formatCompact;
 
 class FlightBossBarHandler {
 
@@ -25,6 +25,7 @@ class FlightBossBarHandler {
     private final String title;
     private final boolean showSpeed;
     private final String speedFormat;
+    private final String timeFormat;
     private final BossBarAdapter bossBarAdapter;
 
     FlightBossBarHandler(EzFlyTimePlugin plugin) {
@@ -42,6 +43,7 @@ class FlightBossBarHandler {
         this.showSpeed = bossBarSection != null && bossBarSection.getConfigurationSection("speed-counter") != null
             && bossBarSection.getConfigurationSection("speed-counter").getBoolean("enabled", false);
         this.speedFormat = bossBarSection != null ? bossBarSection.getString("speed-counter.speed-format", "&bSpeed: {speed} b/s") : "&bSpeed: {speed} b/s";
+        this.timeFormat = cm != null ? cm.getTimeFormat() : "compact";
         this.bossBarAdapter = BossBarAdapter.create(plugin, color, style);
         if (enabled && bossBarAdapter == null) {
             plugin.getLogger().warning("BossBar is enabled in config, but this server does not support it.");
@@ -162,7 +164,7 @@ class FlightBossBarHandler {
 
     private String formatTitle(Player player, int remainingSeconds, int percent) {
         String out = title
-                .replace("{time}", formatCompact(remainingSeconds))
+                .replace("{time}", TimeFormatter.format(remainingSeconds, timeFormat))
                 .replace("{seconds}", String.valueOf(remainingSeconds))
                 .replace("{fuel}", String.valueOf(percent));
         boolean needsSpeed = showSpeed || out.contains("{speed}");
@@ -192,7 +194,7 @@ class FlightBossBarHandler {
         }
 
         String speedStr = String.format(Locale.ROOT, "%.1f", horizontalSpeed);
-        String speedText = speedFormat.replace("{speed}", speedStr).replace("{time}", formatCompact(remainingSeconds));
+        String speedText = speedFormat.replace("{speed}", speedStr).replace("{time}", TimeFormatter.format(remainingSeconds, timeFormat));
 
         // If the title already contains a {speed} placeholder, replace it; otherwise append the speed text.
         if (out.contains("{speed}")) {

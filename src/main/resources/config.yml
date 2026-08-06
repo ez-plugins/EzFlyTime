@@ -35,6 +35,11 @@ updates:
 # flytime-mode: 'time' shows remaining time, 'fuel' shows a fuel-like bar
 display:
   flytime-mode: time # Options: time, fuel
+  # Format for {time} and {duration}. Tokens: DD (padded days), D (days),
+  # HH (padded hours), H (hours), MM (padded minutes), M (minutes),
+  # SS (padded seconds), S (seconds).
+  # Special values "compact" and "clock" are still supported for backward compatibility.
+  time-format: HH:MM:SS
 
 # Storage Configuration
 # Where player flight data is stored.
