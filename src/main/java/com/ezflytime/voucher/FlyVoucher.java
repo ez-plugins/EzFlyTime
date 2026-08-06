@@ -120,12 +120,9 @@ public class FlyVoucher {
             try { meta.setDisplayName(displayName); } catch (Throwable ignored) {}
             try { meta.setLore(lore); } catch (Throwable ignored) {}
             try { applyItemFlags(meta); } catch (Throwable ignored) {}
-            // Ensure legacy lore is present on the factory-provided ItemMeta
-            // as early as possible so headless tests that capture the factory
-            // meta observe the voucher data deterministically.
-            try {
-                new LegacyVoucherMetadataHandler().apply(meta, id, durationSeconds, uniqueId);
-            } catch (Throwable ignored) {}
+            if (!hideNbt) {
+                try { new LegacyVoucherMetadataHandler().apply(meta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
+            }
             try { metadataHandler.apply(meta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
             // IMPORTANT: call the ItemFactory exactly once per created item
             // to keep the headless test harness deterministic (it appends
@@ -147,7 +144,9 @@ public class FlyVoucher {
                     try { finalMeta.setDisplayName(displayName); } catch (Throwable ignored) {}
                     try { finalMeta.setLore(lore); } catch (Throwable ignored) {}
                     try { applyItemFlags(finalMeta); } catch (Throwable ignored) {}
-                    try { new LegacyVoucherMetadataHandler().apply(finalMeta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
+                    if (!hideNbt) {
+                        try { new LegacyVoucherMetadataHandler().apply(finalMeta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
+                    }
                     try { metadataHandler.apply(finalMeta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
                     try { item.setItemMeta(finalMeta); } catch (Throwable ignored) {}
                     try { plugin.getLogger().fine("[EzFlyTime] [FlyVoucher] populated finalMeta instance=" + System.identityHashCode(finalMeta) + " lore=" + ChatColor.stripColor(String.valueOf(finalMeta.getLore()))); } catch (Throwable ignored) {}
@@ -174,6 +173,9 @@ public class FlyVoucher {
             try { applyItemFlags(meta); } catch (Throwable ignored) {}
             String uniqueId = UUID.randomUUID().toString();
             try { createdUniqueIds.put(System.identityHashCode(item), uniqueId); } catch (Throwable ignored) {}
+            if (!hideNbt) {
+                try { new LegacyVoucherMetadataHandler().apply(meta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
+            }
             try { metadataHandler.apply(meta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
             try { item.setItemMeta(meta); } catch (Throwable ignored) {}
             try { item.setItemMeta(meta); } catch (Throwable ignored) {}
@@ -184,6 +186,9 @@ public class FlyVoucher {
                     try { finalMeta.setDisplayName(displayName); } catch (Throwable ignored) {}
                     try { finalMeta.setLore(lore); } catch (Throwable ignored) {}
                     try { applyItemFlags(finalMeta); } catch (Throwable ignored) {}
+                    if (!hideNbt) {
+                        try { new LegacyVoucherMetadataHandler().apply(finalMeta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
+                    }
                     try { metadataHandler.apply(finalMeta, id, durationSeconds, uniqueId); } catch (Throwable ignored) {}
                     try { item.setItemMeta(finalMeta); } catch (Throwable ignored) {}
                     try { plugin.getLogger().fine("[EzFlyTime] [FlyVoucher] populated finalMeta instance=" + System.identityHashCode(finalMeta) + " lore=" + ChatColor.stripColor(String.valueOf(finalMeta.getLore()))); } catch (Throwable ignored) {}
