@@ -52,15 +52,6 @@ class PdcVoucherMetadataHandler implements VoucherMetadataHandler {
         } catch (Exception e) {
             plugin.getLogger().warning("Failed to apply PDC metadata: " + e.getMessage());
         }
-
-        // Always also write legacy lore so headless tests and older servers
-        // can reliably observe voucher metadata. This avoids relying on the
-        // PDC implementation details in test environments.
-        try {
-            new LegacyVoucherMetadataHandler().apply(meta, voucherId, durationSeconds, uniqueId);
-        } catch (Throwable t) {
-            // swallow
-        }
     }
 
     @Override
